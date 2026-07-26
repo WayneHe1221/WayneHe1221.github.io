@@ -297,6 +297,12 @@
     }
     .proj-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
     .proj-card h3 { margin: 0 0 4px; font-size: 1.08rem; }
+    .proj-card .proj-org {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin: 0 0 6px;
+    }
     .proj-card .sub { color: var(--text-soft); font-size: 0.9rem; margin: 0 0 10px; }
     .proj-card .stack { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); margin-bottom: 12px; }
     .proj-card ul { margin: 0; padding-left: 18px; color: var(--text-soft); font-size: 0.92rem; }
@@ -681,6 +687,7 @@
 
         <div class="proj-card">
           <h3>中華網安助手</h3>
+          <p class="proj-org">CHT Security 中華資安國際</p>
           <p class="sub">提供用戶操作付費通信網路功能的平台</p>
           <div class="stack">MVVM · Hilt · Kotlin</div>
           <div class="shots" data-gallery="cht">
@@ -720,6 +727,7 @@
 
         <div class="proj-card">
           <h3>CypherCom</h3>
+          <p class="proj-org">CHT Security 中華資安國際</p>
           <p class="sub">提供特殊加密的通訊平台</p>
           <div class="stack">MVVM · Hilt · Kotlin</div>
           <div class="shots" data-gallery="cypher">
@@ -752,7 +760,39 @@
         </div>
 
         <div class="proj-card">
+          <h3>Animated Sticker Maker for WA</h3>
+          <p class="proj-org">立應科技有限公司</p>
+          <p class="sub">動態貼圖瀏覽與自製貼圖工具</p>
+          <div class="stack">MVVM · Hilt · OpenCV · WebP</div>
+          <div class="shots" data-gallery="sticker">
+            <button type="button" data-src="assets/shots/sticker-1.jpg" data-cap="Animated Sticker Maker — 貼圖包首頁，逾 300 組主題">
+              <img src="assets/shots/sticker-1.jpg" alt="Animated Sticker Maker 貼圖包首頁，分頁瀏覽多組貼圖主題" loading="lazy" width="506" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/sticker-2.jpg" data-cap="Animated Sticker Maker — 貼圖瀏覽與搜尋">
+              <img src="assets/shots/sticker-2.jpg" alt="Animated Sticker Maker 貼圖瀏覽頁，含搜尋與分類分頁" loading="lazy" width="506" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/sticker-3.jpg" data-cap="Animated Sticker Maker — 自製貼圖編輯器：去背與圖層編輯">
+              <img src="assets/shots/sticker-3.jpg" alt="Animated Sticker Maker 自製貼圖編輯器，可去背並疊加文字與圖層" loading="lazy" width="506" height="900">
+            </button>
+          </div>
+          <ul>
+            <li>App 以 OpenCV 進行影像去背、WebP 編碼輸出符合 WhatsApp 規範的動態貼圖，並串接 GIPHY SDK 提供內容搜尋</li>
+            <li>負責功能維護與版本更新</li>
+            <li>維護廣告 SDK 串接，維持產品變現</li>
+            <li>維持 App 的未崩潰率達 99% 以上</li>
+          </ul>
+          <div class="link-row stores">
+            <a class="store-link" href="https://play.google.com/store/apps/details?id=com.nut.id.sticker"
+               target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.8a1 1 0 0 0-.6.9v18.6a1 1 0 0 0 .6.9l10-9.9-10-10.5zm11.4 8.4 2.8-2.7-9.2-5.2 6.4 7.9zm0 3.6-6.4 7.9 9.2-5.2-2.8-2.7zm4.2-1.8 2.4-1.4c.5-.3.5-1.1 0-1.4l-2.4-1.3-2.9 2 2.9 2.1z"/></svg>
+              Google Play
+            </a>
+          </div>
+        </div>
+
+        <div class="proj-card">
           <h3>WA message recover-backup</h3>
+          <p class="proj-org">立應科技有限公司</p>
           <p class="sub">提供備份通訊軟體內容的功能</p>
           <div class="stack">MVVM · Hilt</div>
           <ul>
@@ -763,6 +803,42 @@
             <li>新增多媒體資源備份功能</li>
           </ul>
           <div class="link-row"><span class="muted">已自 Google Play 下架</span></div>
+        </div>
+
+        <div class="proj-card">
+          <h3>HKTVmall</h3>
+          <p class="proj-org">英屬維京群島商易創投有限公司</p>
+          <p class="sub">香港最大線上購物平台的 Android App</p>
+          <div class="stack">MVVM · ExoPlayer · Google Analytics</div>
+          <div class="shots" data-gallery="hktv">
+            <button type="button" data-src="assets/shots/hktv-1.jpg" data-cap="HKTVmall — 品牌主視覺與自取點服務">
+              <img src="assets/shots/hktv-1.jpg" alt="HKTVmall 商店頁主視覺，介紹超過 300 個自取點" loading="lazy" width="506" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/hktv-2.jpg" data-cap="HKTVmall — 首頁：熱門分類與商品推薦">
+              <img src="assets/shots/hktv-2.jpg" alt="HKTVmall App 首頁，顯示熱門分類與推薦商品" loading="lazy" width="506" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/hktv-3.jpg" data-cap="HKTVmall — 直播購物：影片播放與即時商品清單">
+              <img src="assets/shots/hktv-3.jpg" alt="HKTVmall 直播購物畫面，影片播放搭配即時商品清單與留言" loading="lazy" width="506" height="900">
+            </button>
+          </div>
+          <ul>
+            <li>與香港開發團隊遠端協作，負責 Android 端功能開發</li>
+            <li>透過 UI 元件模組化提升程式碼複用比例</li>
+            <li>以 ExoPlayer 為產品新增影片播放功能</li>
+            <li>翻新 Google Analytics 埋點模組與埋點位置</li>
+            <li>基於前端商業邏輯部署，實作推薦商品給用戶的功能</li>
+          </ul>
+          <div class="link-row stores">
+            <a class="store-link" href="https://play.google.com/store/apps/details?id=com.hktv.android.hktvmall"
+               target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.8a1 1 0 0 0-.6.9v18.6a1 1 0 0 0 .6.9l10-9.9-10-10.5zm11.4 8.4 2.8-2.7-9.2-5.2 6.4 7.9zm0 3.6-6.4 7.9 9.2-5.2-2.8-2.7zm4.2-1.8 2.4-1.4c.5-.3.5-1.1 0-1.4l-2.4-1.3-2.9 2 2.9 2.1z"/></svg>
+              Google Play
+            </a>
+            <a class="store-link" href="https://apps.apple.com/hk/app/id910398738" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.7c0-2.2 1.8-3.3 1.9-3.4-1-1.5-2.6-1.7-3.2-1.7-1.3-.1-2.6.8-3.3.8-.7 0-1.7-.8-2.8-.7-1.5 0-2.8.9-3.6 2.2-1.5 2.6-.4 6.5 1.1 8.7.7 1 1.6 2.2 2.7 2.2 1.1 0 1.5-.7 2.8-.7 1.3 0 1.6.7 2.7.7 1.1 0 1.9-1.1 2.6-2.1.8-1.2 1.1-2.3 1.2-2.4-.1 0-2.1-.8-2.1-3.6zM14.3 5.9c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.6 1.3-.6.6-1 1.6-.9 2.6 1 .1 2-.5 2.6-1.2z"/></svg>
+              App Store
+            </a>
+          </div>
         </div>
 
       </div>
