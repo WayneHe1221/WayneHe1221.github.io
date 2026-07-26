@@ -44,6 +44,12 @@
       --on-accent: #ffffff;
       --nav-bg: rgba(255, 255, 255, 0.85);
       --shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+      --ai-bg: #f3e8ff;
+      --ai-fg: #6b21a8;
+      --ai-border: #e2ceff;
+      --pending-bg: #fff4e5;
+      --pending-fg: #8a4b00;
+      --pending-border: #ffe0b8;
       --radius: 10px;
       --maxw: 800px;
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC",
@@ -67,6 +73,12 @@
         --on-accent: #0d1117;
         --nav-bg: rgba(13, 17, 23, 0.85);
         --shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+        --ai-bg: rgba(168, 85, 247, 0.16);
+        --ai-fg: #d9b3ff;
+        --ai-border: rgba(168, 85, 247, 0.38);
+        --pending-bg: rgba(245, 158, 11, 0.16);
+        --pending-fg: #fcd34d;
+        --pending-border: rgba(245, 158, 11, 0.38);
       }
     }
     :root[data-theme="dark"] {
@@ -82,6 +94,12 @@
       --on-accent: #0d1117;
       --nav-bg: rgba(13, 17, 23, 0.85);
       --shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+      --ai-bg: rgba(168, 85, 247, 0.16);
+      --ai-fg: #d9b3ff;
+      --ai-border: rgba(168, 85, 247, 0.38);
+      --pending-bg: rgba(245, 158, 11, 0.16);
+      --pending-fg: #fcd34d;
+      --pending-border: rgba(245, 158, 11, 0.38);
     }
 
     * { box-sizing: border-box; }
@@ -245,6 +263,24 @@
     .item ul { margin: 10px 0 0; padding-left: 18px; color: var(--text-soft); }
     .item li { margin-bottom: 5px; }
 
+    /* ---- Role progression (晉升軌跡) ---- */
+    .roles {
+      margin: 10px 0 2px;
+      border-left: 2px solid var(--accent-soft);
+      padding-left: 12px;
+    }
+    .role-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 4px 10px;
+      font-size: 0.9rem;
+    }
+    .role-row + .role-row { margin-top: 2px; }
+    .role-row .role-name { color: var(--text); font-weight: 600; }
+    .role-row:not(:first-child) .role-name { color: var(--text-soft); font-weight: 400; }
+    .role-row .role-when { font-family: var(--mono); font-size: 0.78rem; color: var(--text-soft); }
+
     /* ---- Projects ---- */
     .proj-grid {
       display: grid;
@@ -266,7 +302,7 @@
     .proj-card ul { margin: 0; padding-left: 18px; color: var(--text-soft); font-size: 0.92rem; }
     .proj-card li { margin-bottom: 4px; }
     .proj-card .link-row {
-      margin-top: 14px;
+      margin-top: auto;   /* 貼齊卡片底部，讓同列卡片的連結列對齊 */
       padding-top: 12px;
       border-top: 1px solid var(--border);
       font-size: 0.86rem;
@@ -289,6 +325,147 @@
       padding: 2px 8px;
       border-radius: 4px;
     }
+
+    /* ---- Badges ---- */
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    .badge-ai {
+      background: var(--ai-bg);
+      color: var(--ai-fg);
+      border-color: var(--ai-border);
+    }
+    .badge-pending {
+      background: var(--pending-bg);
+      color: var(--pending-fg);
+      border-color: var(--pending-border);
+    }
+    .badge svg { width: 12px; height: 12px; }
+
+    /* ---- Screenshot gallery ---- */
+    .shots {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 2px 10px;
+      margin: 2px 0 4px;
+      scrollbar-width: thin;
+    }
+    .shots button {
+      flex: none;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-alt);
+      cursor: zoom-in;
+      overflow: hidden;
+      line-height: 0;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .shots button:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .shots button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .shots img { height: 132px; width: auto; display: block; }
+    .shots-note {
+      margin: 0 0 12px;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: var(--text-soft);
+    }
+
+    /* ---- Lightbox ---- */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(4px);
+    }
+    .lightbox[open] { display: flex; }
+    .lightbox img {
+      max-width: min(100%, 520px);
+      max-height: calc(100vh - 96px);
+      width: auto;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+    .lightbox .lb-caption {
+      position: absolute;
+      bottom: 22px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: #e6edf3;
+      font-size: 0.86rem;
+      padding: 0 20px;
+    }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.35);
+      color: #fff;
+      font-size: 1.1rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .lightbox .lb-close:hover { background: rgba(255, 255, 255, 0.16); }
+    .lightbox .lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.35);
+      color: #fff;
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .lightbox .lb-nav:hover { background: rgba(255, 255, 255, 0.16); }
+    .lightbox .lb-prev { left: 14px; }
+    .lightbox .lb-next { right: 14px; }
+    @media (max-width: 560px) {
+      .lightbox .lb-nav { width: 36px; height: 36px; }
+      .lightbox .lb-prev { left: 6px; }
+      .lightbox .lb-next { right: 6px; }
+    }
+
+    /* ---- Store links ---- */
+    .stores { display: flex; flex-wrap: wrap; gap: 8px; }
+    .store-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 5px 11px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    .store-link:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .store-link svg { width: 14px; height: 14px; flex: none; }
 
     /* ---- Contact ---- */
     .contact-list { display: flex; flex-direction: column; gap: 12px; }
@@ -434,8 +611,18 @@
 
         <div class="item">
           <div class="when">2023.06 – Present · Taipei, Taiwan</div>
-          <h3>高階工程師</h3>
+          <h3>資深高階工程師</h3>
           <div class="org">CHT Security 中華資安國際</div>
+          <div class="roles">
+            <div class="role-row">
+              <span class="role-name">資深高階工程師</span>
+              <span class="role-when">2026.03 – Present</span>
+            </div>
+            <div class="role-row">
+              <span class="role-name">高階工程師</span>
+              <span class="role-when">2023.06 – 2026.03</span>
+            </div>
+          </div>
           <p class="desc">專責 Android 開發，開發通信網路功能平台以及通訊產品，並根據數據提出產品未來方向及優化。</p>
           <ul>
             <li>開發通信應用技術、防護應用技術、專利保護等</li>
@@ -496,6 +683,20 @@
           <h3>中華網安助手</h3>
           <p class="sub">提供用戶操作付費通信網路功能的平台</p>
           <div class="stack">MVVM · Hilt · Kotlin</div>
+          <div class="shots" data-gallery="cht">
+            <button type="button" data-src="assets/shots/cht-1.jpg" data-cap="中華網安助手 — 首頁：各項防護服務的管理狀態一覽">
+              <img src="assets/shots/cht-1.jpg" alt="中華網安助手 首頁，列出色情守門員、防駭守門員等服務的管理狀態" loading="lazy" width="506" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/cht-2.jpg" data-cap="中華網安助手 — 安全洞察月報：每月阻擋次數與安全評分">
+              <img src="assets/shots/cht-2.jpg" alt="中華網安助手 安全洞察月報，顯示每月阻擋成效與安全評分" loading="lazy" width="506" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/cht-3.jpg" data-cap="中華網安助手 — 防駭守門員：釣魚與惡意連線攔阻紀錄">
+              <img src="assets/shots/cht-3.jpg" alt="中華網安助手 防駭守門員，分類顯示釣魚網站與惡意程式的攔阻紀錄" loading="lazy" width="506" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/cht-4.jpg" data-cap="中華網安助手 — 色情守門員：自訂阻擋類別設定">
+              <img src="assets/shots/cht-4.jpg" alt="中華網安助手 色情守門員，可逐類別開關阻擋設定" loading="lazy" width="506" height="900">
+            </button>
+          </div>
           <ul>
             <li>以 Kotlin 重構專案</li>
             <li>引入單元測試，商業邏輯覆蓋率超過 80%</li>
@@ -504,17 +705,50 @@
             <li>透過數據分析提出優化重構及新功能</li>
             <li>通過行動應用 App 基本資安標章（MAS 標章）</li>
           </ul>
+          <div class="link-row stores">
+            <a class="store-link" href="https://play.google.com/store/apps/details?id=com.CHT.CyberSecurityAssistant"
+               target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.8a1 1 0 0 0-.6.9v18.6a1 1 0 0 0 .6.9l10-9.9-10-10.5zm11.4 8.4 2.8-2.7-9.2-5.2 6.4 7.9zm0 3.6-6.4 7.9 9.2-5.2-2.8-2.7zm4.2-1.8 2.4-1.4c.5-.3.5-1.1 0-1.4l-2.4-1.3-2.9 2 2.9 2.1z"/></svg>
+              Google Play
+            </a>
+            <a class="store-link" href="https://apps.apple.com/tw/app/id1579033364" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.7c0-2.2 1.8-3.3 1.9-3.4-1-1.5-2.6-1.7-3.2-1.7-1.3-.1-2.6.8-3.3.8-.7 0-1.7-.8-2.8-.7-1.5 0-2.8.9-3.6 2.2-1.5 2.6-.4 6.5 1.1 8.7.7 1 1.6 2.2 2.7 2.2 1.1 0 1.5-.7 2.8-.7 1.3 0 1.6.7 2.7.7 1.1 0 1.9-1.1 2.6-2.1.8-1.2 1.1-2.3 1.2-2.4-.1 0-2.1-.8-2.1-3.6zM14.3 5.9c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.6 1.3-.6.6-1 1.6-.9 2.6 1 .1 2-.5 2.6-1.2z"/></svg>
+              App Store
+            </a>
+          </div>
         </div>
 
         <div class="proj-card">
           <h3>CypherCom</h3>
           <p class="sub">提供特殊加密的通訊平台</p>
           <div class="stack">MVVM · Hilt · Kotlin</div>
+          <div class="shots" data-gallery="cypher">
+            <button type="button" data-src="assets/shots/cypher-1.jpg" data-cap="CypherCom — 聊天室列表與好友分頁">
+              <img src="assets/shots/cypher-1.jpg" alt="CypherCom 聊天室列表，含好友分頁與搜尋" loading="lazy" width="415" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/cypher-2.jpg" data-cap="CypherCom — 加密聊天室對話">
+              <img src="assets/shots/cypher-2.jpg" alt="CypherCom 加密聊天室的對話畫面，含文字與貼圖訊息" loading="lazy" width="415" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/cypher-3.jpg" data-cap="CypherCom — 加密語音通話中">
+              <img src="assets/shots/cypher-3.jpg" alt="CypherCom 加密語音通話畫面，顯示已加密標記與通話品質" loading="lazy" width="415" height="900">
+            </button>
+          </div>
           <ul>
             <li>以 Kotlin 重構專案</li>
             <li>引入單元測試</li>
             <li>引入 Crashlytics 追蹤上線狀況</li>
           </ul>
+          <div class="link-row stores">
+            <a class="store-link" href="https://play.google.com/store/apps/details?id=com.chtsecurity.cyphercom"
+               target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.8a1 1 0 0 0-.6.9v18.6a1 1 0 0 0 .6.9l10-9.9-10-10.5zm11.4 8.4 2.8-2.7-9.2-5.2 6.4 7.9zm0 3.6-6.4 7.9 9.2-5.2-2.8-2.7zm4.2-1.8 2.4-1.4c.5-.3.5-1.1 0-1.4l-2.4-1.3-2.9 2 2.9 2.1z"/></svg>
+              Google Play
+            </a>
+            <a class="store-link" href="https://apps.apple.com/tw/app/id1613684132" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.7c0-2.2 1.8-3.3 1.9-3.4-1-1.5-2.6-1.7-3.2-1.7-1.3-.1-2.6.8-3.3.8-.7 0-1.7-.8-2.8-.7-1.5 0-2.8.9-3.6 2.2-1.5 2.6-.4 6.5 1.1 8.7.7 1 1.6 2.2 2.7 2.2 1.1 0 1.5-.7 2.8-.7 1.3 0 1.6.7 2.7.7 1.1 0 1.9-1.1 2.6-2.1.8-1.2 1.1-2.3 1.2-2.4-.1 0-2.1-.8-2.1-3.6zM14.3 5.9c.6-.7 1-1.7.9-2.7-.9 0-2 .6-2.6 1.3-.6.6-1 1.6-.9 2.6 1 .1 2-.5 2.6-1.2z"/></svg>
+              App Store
+            </a>
+          </div>
         </div>
 
         <div class="proj-card">
@@ -528,6 +762,7 @@
             <li>加入遠端通知及本地偵測通知功能</li>
             <li>新增多媒體資源備份功能</li>
           </ul>
+          <div class="link-row"><span class="muted">已自 Google Play 下架</span></div>
         </div>
 
       </div>
@@ -545,6 +780,13 @@
         <div class="proj-card">
           <h3>KaHe 卡盒</h3>
           <p class="sub">集換式卡牌遊戲的牌組建構與卡池瀏覽工具</p>
+          <div class="badges">
+            <span class="badge badge-ai">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 5.7L19.6 9l-4.3 3.6 1.4 5.9L12 15.3 7.3 18.5l1.4-5.9L4.4 9l5.7-1.3L12 2z"/></svg>
+              AI 協作開發
+            </span>
+            <span class="badge badge-pending">商店送審中</span>
+          </div>
           <div class="stack">Kotlin Multiplatform · Compose Multiplatform</div>
           <div class="platforms">
             <span class="platform">Android</span>
@@ -552,31 +794,70 @@
             <span class="platform">Desktop</span>
             <span class="platform">Web / Wasm</span>
           </div>
+          <div class="shots" data-gallery="kahe">
+            <button type="button" data-src="assets/shots/kahe-1.jpg" data-cap="KaHe 卡盒 — 首次導覽的歡迎頁">
+              <img src="assets/shots/kahe-1.jpg" alt="KaHe 卡盒 首次導覽的歡迎頁面" loading="lazy" width="416" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/kahe-2.jpg" data-cap="KaHe 卡盒 — 遊戲選單：多款卡牌遊戲共用同一套核心">
+              <img src="assets/shots/kahe-2.jpg" alt="KaHe 卡盒 遊戲選單，列出支援的多款卡牌遊戲" loading="lazy" width="416" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/kahe-3.jpg" data-cap="KaHe 卡盒 — 遊戲首頁：統計與快速入口">
+              <img src="assets/shots/kahe-3.jpg" alt="KaHe 卡盒 遊戲首頁，顯示統計數據與功能快速入口" loading="lazy" width="416" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/kahe-4.jpg" data-cap="KaHe 卡盒 — 卡池網格：多條件篩選與關鍵字搜尋">
+              <img src="assets/shots/kahe-4.jpg" alt="KaHe 卡盒 卡池網格畫面，可多條件篩選與搜尋卡片" loading="lazy" width="416" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/kahe-5.jpg" data-cap="KaHe 卡盒 — 卡片詳情：數據、特徵與繁中效果文">
+              <img src="assets/shots/kahe-5.jpg" alt="KaHe 卡盒 卡片詳情畫面，並列數據、特徵與繁體中文效果文" loading="lazy" width="416" height="900">
+            </button>
+          </div>
+          <p class="shots-note">截圖中的卡面為自製合成圖，非官方卡圖 — 避免公開展示時觸及卡牌原廠的智財權。</p>
           <ul>
             <li>單一 Kotlin 程式庫共用 UI 與商業邏輯，同時發佈到五個平台</li>
             <li>資料層以通用卡片模型設計，可擴充支援不同卡牌遊戲；目前內建 Weiß Schwarz 與排球少年 TCG</li>
-            <li>離線優先的卡片資料 bundle 機制，處理各平台資源載入差異</li>
+            <li>離線優先的卡片資料 bundle 機制，處理各平台資源載入差異；卡表以差異更新（delta）方式 OTA 派送</li>
             <li>建置卡片翻譯流程，累積譯出數千張卡片文字</li>
+            <li><strong>AI 協作方式</strong>：我負責架構設計、跨平台技術選型與程式碼審查驗收，實作大量交由 AI 產出後再逐項驗證（約九成 commit 為 AI 協作產出）</li>
           </ul>
-          <div class="link-row"><span class="muted">原始碼私有 · 可於面試時展示</span></div>
+          <div class="link-row"><span class="muted">原始碼私有 · 可於面試時完整展示</span></div>
         </div>
 
         <div class="proj-card">
           <h3>Card Radar</h3>
           <p class="sub">卡牌商品到貨監控與通知系統</p>
+          <div class="badges">
+            <span class="badge badge-ai">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 5.7L19.6 9l-4.3 3.6 1.4 5.9L12 15.3 7.3 18.5l1.4-5.9L4.4 9l5.7-1.3L12 2z"/></svg>
+              部分 AI 協作
+            </span>
+          </div>
           <div class="stack">Python · GitHub Actions · Firestore · React</div>
           <div class="platforms">
             <span class="platform">Web</span>
             <span class="platform">Telegram Bot</span>
+          </div>
+          <div class="shots" data-gallery="cardradar">
+            <button type="button" data-src="assets/shots/cardradar-1.jpg" data-cap="Card Radar — 監控儀表板入口，以 Google 登入限定授權帳號">
+              <img src="assets/shots/cardradar-1.jpg" alt="Card Radar 監控儀表板的登入頁面" loading="lazy" width="1100" height="687">
+            </button>
           </div>
           <ul>
             <li>以 GitHub Actions 排程定時爬取 8 家日本卡牌商店的在庫與價格，無需自架伺服器</li>
             <li>抓取或解析異常時保留前一次基準，避免誤判大量下架而發出錯誤通知</li>
             <li>偵測到新品即透過 Telegram Bot 推播</li>
             <li>資料同步至 Cloud Firestore，並提供 React 儀表板；以 Google 登入搭配 Firestore Rules 控管存取</li>
+            <li><strong>AI 協作方式</strong>：爬蟲與通知邏輯由我設計，部分修補與重構交由 AI 以 PR 形式提出，我審查後再合併</li>
           </ul>
-          <div class="link-row">
-            <a href="https://github.com/WayneHe1221/automation" target="_blank" rel="noopener">GitHub →</a>
+          <p class="shots-note">儀表板需授權的 Google 帳號才能讀取監控資料，連結僅供查看登入頁。</p>
+          <div class="link-row stores">
+            <a class="store-link" href="https://github.com/WayneHe1221/automation" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.9 10.9c.6.1.8-.2.8-.6v-2.2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3 0 0 1-.4 3.3 1.2a11 11 0 0 1 6 0C18.6 4.5 19.6 5 19.6 5c.6 1.5.2 2.7.1 3a4.6 4.6 0 0 1 1.2 3.2c0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6A11.5 11.5 0 0 0 23.5 12A11.5 11.5 0 0 0 12 .5z"/></svg>
+              GitHub
+            </a>
+            <a class="store-link" href="https://card-shop-tracker.web.app/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>
+              儀表板
+            </a>
           </div>
         </div>
 
@@ -605,6 +886,15 @@
 
   </main>
 
+  <!-- ===== Lightbox ===== -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="截圖放大檢視">
+    <button class="lb-close" id="lbClose" type="button" aria-label="關閉">✕</button>
+    <button class="lb-nav lb-prev" id="lbPrev" type="button" aria-label="上一張">‹</button>
+    <img id="lbImg" src="" alt="">
+    <button class="lb-nav lb-next" id="lbNext" type="button" aria-label="下一張">›</button>
+    <div class="lb-caption" id="lbCap"></div>
+  </div>
+
   <footer>
     © <span id="year">2026</span> 何玟叡 Wayne He · Built as a static site on GitHub Pages
   </footer>
@@ -632,6 +922,67 @@
           root.setAttribute("data-theme", next);
           try { localStorage.setItem("theme", next); } catch (e) {}
         }
+      });
+    })();
+
+    // ---- 截圖燈箱 ----
+    (function () {
+      var box = document.getElementById("lightbox");
+      var img = document.getElementById("lbImg");
+      var cap = document.getElementById("lbCap");
+      var prevBtn = document.getElementById("lbPrev");
+      var nextBtn = document.getElementById("lbNext");
+      var shots = [];        // 目前這組相簿的按鈕
+      var index = 0;
+      var opener = null;     // 記住觸發的按鈕，關閉時把焦點還回去
+
+      function render() {
+        var b = shots[index];
+        img.src = b.dataset.src;
+        img.alt = b.querySelector("img").alt;
+        cap.textContent = b.dataset.cap || "";
+        var many = shots.length > 1;
+        prevBtn.hidden = !many;
+        nextBtn.hidden = !many;
+      }
+
+      function open(button) {
+        var group = button.closest(".shots");
+        shots = Array.prototype.slice.call(group.querySelectorAll("button"));
+        index = shots.indexOf(button);
+        opener = button;
+        render();
+        box.setAttribute("open", "");
+        document.body.style.overflow = "hidden";
+        document.getElementById("lbClose").focus();
+      }
+
+      function close() {
+        box.removeAttribute("open");
+        document.body.style.overflow = "";
+        img.src = "";
+        if (opener) { opener.focus(); opener = null; }
+      }
+
+      function step(delta) {
+        if (shots.length < 2) return;
+        index = (index + delta + shots.length) % shots.length;
+        render();
+      }
+
+      document.querySelectorAll(".shots button").forEach(function (b) {
+        b.addEventListener("click", function () { open(b); });
+      });
+      document.getElementById("lbClose").addEventListener("click", close);
+      prevBtn.addEventListener("click", function () { step(-1); });
+      nextBtn.addEventListener("click", function () { step(1); });
+      // 點背景（而非圖片或按鈕）關閉
+      box.addEventListener("click", function (e) { if (e.target === box) close(); });
+      document.addEventListener("keydown", function (e) {
+        if (!box.hasAttribute("open")) return;
+        if (e.key === "Escape") close();
+        else if (e.key === "ArrowLeft") step(-1);
+        else if (e.key === "ArrowRight") step(1);
       });
     })();
   </script>
