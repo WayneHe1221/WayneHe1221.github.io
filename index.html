@@ -1,10 +1,520 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>你好，GitHub</title>
-  </head>
-  <body>
-    <h1>覺得厲害</h1>
-  </body>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>何玟叡 Wayne He — Senior Android Engineer</title>
+  <meta name="description" content="何玟叡 Wayne He — 擁有 6 年經驗的 Android 開發工程師，專注於 MVVM 架構、Jetpack 與 Kotlin Multiplatform 跨平台技術。">
+  <link rel="canonical" href="https://waynehe1221.github.io/">
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="何玟叡 Wayne He">
+  <meta property="og:title" content="何玟叡 Wayne He — Senior Android Engineer">
+  <meta property="og:description" content="6 年 Android 開發經驗，專注於 MVVM 架構、Jetpack 與 Kotlin Multiplatform 跨平台技術。">
+  <meta property="og:url" content="https://waynehe1221.github.io/">
+  <meta property="og:locale" content="zh_TW">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="何玟叡 Wayne He — Senior Android Engineer">
+  <meta name="twitter:description" content="6 年 Android 開發經驗，專注於 MVVM 架構、Jetpack 與 Kotlin Multiplatform 跨平台技術。">
+  <meta name="theme-color" content="#2563eb">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f6f8fa;
+      --text: #1f2328;
+      --text-soft: #57606a;
+      --border: #e1e4e8;
+      --accent: #2563eb;
+      --accent-soft: #e8f0fe;
+      --radius: 10px;
+      --maxw: 800px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC",
+              "Microsoft JhengHei", "Noto Sans TC", Roboto, Helvetica, Arial, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ---- Nav ---- */
+    header.nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: saturate(180%) blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .nav-brand { font-weight: 700; letter-spacing: 0.3px; }
+    .nav-links { display: flex; gap: 22px; flex-wrap: wrap; }
+    .nav-links a { color: var(--text-soft); font-size: 0.92rem; }
+    .nav-links a:hover { color: var(--accent); text-decoration: none; }
+
+    /* ---- Layout ---- */
+    main { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+    section { padding: 60px 0 8px; scroll-margin-top: 70px; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    h2 { font-size: 1.5rem; margin: 0 0 24px; }
+
+    /* ---- Hero ---- */
+    .hero { padding: 84px 0 36px; }
+    .hero h1 { font-size: 2.6rem; line-height: 1.2; margin: 0 0 12px; letter-spacing: -0.5px; }
+    .hero h1 .en { color: var(--text-soft); font-weight: 500; font-size: 1.6rem; }
+    .hero .role { font-size: 1.15rem; color: var(--accent); font-weight: 600; margin: 0 0 20px; }
+    .hero p { font-size: 1.08rem; color: var(--text-soft); max-width: 660px; margin: 0 0 28px; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      transition: all 0.15s ease;
+    }
+    .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn-primary:hover { background: #1d4ed8; text-decoration: none; }
+    .btn-ghost { background: transparent; color: var(--text); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+    /* ---- About ---- */
+    .about p { color: var(--text-soft); font-size: 1.02rem; }
+    .about strong { color: var(--text); }
+    .edu {
+      margin-top: 20px;
+      padding: 14px 18px;
+      background: var(--bg-alt);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    .edu .k { font-family: var(--mono); color: var(--accent); font-size: 0.82rem; }
+
+    /* ---- Skills ---- */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .skill-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      background: var(--bg-alt);
+    }
+    .skill-card h3 { margin: 0 0 12px; font-size: 1rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    /* ---- Timeline (experience) ---- */
+    .timeline { border-left: 2px solid var(--border); padding-left: 24px; margin-left: 4px; }
+    .item { position: relative; padding-bottom: 34px; }
+    .item:last-child { padding-bottom: 0; }
+    .item::before {
+      content: "";
+      position: absolute;
+      left: -31px;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+    }
+    .item .when { font-family: var(--mono); font-size: 0.82rem; color: var(--text-soft); }
+    .item h3 { margin: 4px 0 2px; font-size: 1.1rem; }
+    .item .org { color: var(--accent); font-size: 0.95rem; margin-bottom: 4px; font-weight: 600; }
+    .item .desc { color: var(--text-soft); font-size: 0.96rem; margin: 4px 0 0; }
+    .item ul { margin: 10px 0 0; padding-left: 18px; color: var(--text-soft); }
+    .item li { margin-bottom: 5px; }
+
+    /* ---- Projects ---- */
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .proj-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.15s ease, transform 0.15s ease;
+    }
+    .proj-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.06); transform: translateY(-2px); }
+    .proj-card h3 { margin: 0 0 4px; font-size: 1.08rem; }
+    .proj-card .sub { color: var(--text-soft); font-size: 0.9rem; margin: 0 0 10px; }
+    .proj-card .stack { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); margin-bottom: 12px; }
+    .proj-card ul { margin: 0; padding-left: 18px; color: var(--text-soft); font-size: 0.92rem; }
+    .proj-card li { margin-bottom: 4px; }
+    .proj-card .link-row {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 0.86rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .proj-card .link-row .muted { color: var(--text-soft); font-family: var(--mono); font-size: 0.78rem; }
+    .platforms {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .platform {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* ---- Contact ---- */
+    .contact-list { display: flex; flex-direction: column; gap: 12px; }
+    .contact-row { display: flex; gap: 10px; align-items: baseline; }
+    .contact-row .k {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      min-width: 88px;
+    }
+
+    /* ---- Footer ---- */
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 72px;
+      padding: 28px 20px;
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 560px) {
+      .hero h1 { font-size: 2rem; }
+      .hero h1 .en { font-size: 1.2rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <span class="nav-brand">何玟叡 Wayne He</span>
+      <nav class="nav-links">
+        <a href="#about">關於我</a>
+        <a href="#skills">技能</a>
+        <a href="#experience">工作經歷</a>
+        <a href="#projects">專案</a>
+        <a href="#side-projects">個人專案</a>
+        <a href="#contact">聯絡</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== Hero ===== -->
+    <section class="hero" id="top">
+      <h1>何玟叡 <span class="en">Wayne He</span></h1>
+      <p class="role">Senior Android Engineer · Android 開發工程師</p>
+      <p>
+        擁有 6 年 Android 開發經驗，專注於以 MVVM 架構與 Jetpack 撰寫更高效、更穩定的應用程式，
+        並持續往 Kotlin Multiplatform、Flutter 等跨平台技術延伸。期望為團隊帶來新的助力，
+        推動 App 產品全面性的成長。
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#contact">聯絡我</a>
+        <a class="btn btn-ghost" href="https://github.com/WayneHe1221" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section class="about" id="about">
+      <div class="section-label">01 / About</div>
+      <h2>關於我</h2>
+      <p>
+        6 年 Android 開發經驗，具備以 <strong>Kotlin / Java</strong> 維護及開發專案的經驗，
+        目前專注於以 <strong>MVVM 架構</strong> 及 <strong>Jetpack</strong> 撰寫更高效的應用程式，
+        對 <strong>跨平台技術</strong> 也有所涉獵，包含 Kotlin Multiplatform 及 Flutter，
+        喜歡透過參與研討會及聚會獲取技術新知。
+      </p>
+      <p>
+        善於針對 <strong>專案結構優化</strong>、<strong>記憶體使用優化</strong> 以及
+        <strong>協助夥伴擴展技術應用</strong>，不僅是個人的技術展現，
+        在團隊合作上也有十足的信心，為團隊成員帶來正向助益。
+      </p>
+      <div class="edu">
+        <span class="k">EDUCATION</span> ｜ 台北市立大學 — 資訊科學系　學士（2015 – 2019）
+      </div>
+    </section>
+
+    <!-- ===== Skills ===== -->
+    <section id="skills">
+      <div class="section-label">02 / Skills</div>
+      <h2>Android 開發技能</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>Jetpack</h3>
+          <div class="tags">
+            <span class="tag">Hilt</span>
+            <span class="tag">Coroutine</span>
+            <span class="tag">Navigation</span>
+            <span class="tag">Room</span>
+            <span class="tag">Compose</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>網路請求</h3>
+          <div class="tags">
+            <span class="tag">Retrofit</span>
+            <span class="tag">OkHttp</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>測試</h3>
+          <div class="tags">
+            <span class="tag">JUnit</span>
+            <span class="tag">Mockk</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>其他</h3>
+          <div class="tags">
+            <span class="tag">JNI</span>
+            <span class="tag">Kotlin Multiplatform</span>
+            <span class="tag">MediaPipe</span>
+            <span class="tag">SQLCipher</span>
+            <span class="tag">Google Analytics</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Experience ===== -->
+    <section id="experience">
+      <div class="section-label">03 / Experience</div>
+      <h2>工作經歷</h2>
+      <div class="timeline">
+
+        <div class="item">
+          <div class="when">2023.06 – Present · Taipei, Taiwan</div>
+          <h3>高階工程師</h3>
+          <div class="org">CHT Security 中華資安國際</div>
+          <p class="desc">專責 Android 開發，開發通信網路功能平台以及通訊產品，並根據數據提出產品未來方向及優化。</p>
+          <ul>
+            <li>開發通信應用技術、防護應用技術、專利保護等</li>
+            <li>引入 MVVM 及單元測試，以提升專案穩定性</li>
+            <li>建構開發流程及自動化佈署工作</li>
+            <li>整理研討會及技術新知，促進內部技術交流</li>
+            <li>行動裝置端的 AI 運算應用技術研究</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="when">2022.06 – 2023.02 · Taipei, Taiwan</div>
+          <h3>Android Engineer</h3>
+          <div class="org">立應科技有限公司</div>
+          <p class="desc">負責開發公司商業化部門的 App 產品，以 MVVM 架構搭配 DI 套件建構，並串接廣告 SDK 獲取收益。</p>
+          <ul>
+            <li>獨立開發訊息備份工具並上架</li>
+            <li>維護各個 App 的廣告系統</li>
+            <li>維護各個 App 的未崩潰率超過 99%</li>
+            <li>研究競品 App 的功能</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="when">2021.03 – 2022.05 · Taipei, Taiwan</div>
+          <h3>Android 工程師</h3>
+          <div class="org">英屬維京群島商易創投有限公司</div>
+          <p class="desc">負責開發電商 App 平台，主要與香港開發團隊遠端合作。</p>
+          <ul>
+            <li>透過 UI 元件模組化提升程式碼複用比例</li>
+            <li>翻新 Google Analytics 埋點模組及埋點位置</li>
+            <li>使用 ExoPlayer 為產品新增影片播放功能</li>
+            <li>基於前端商業邏輯部署，實作推薦商品給用戶的功能</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="when">2020.04 – 2021.02 · Taipei, Taiwan</div>
+          <h3>Android 工程師</h3>
+          <div class="org">傲視科技 StrateVision</div>
+          <p class="desc">負責開發 Android TV 平台 App，協助與客戶溝通需求及釋疑的工作。</p>
+          <ul>
+            <li>透過 log、ANR、tombstone 除錯 App 問題</li>
+            <li>協助裝置通過 Google 官方 CTS 相關認證</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== Projects ===== -->
+    <section id="projects">
+      <div class="section-label">04 / Projects</div>
+      <h2>專案經歷</h2>
+      <div class="proj-grid">
+
+        <div class="proj-card">
+          <h3>中華網安助手</h3>
+          <p class="sub">提供用戶操作付費通信網路功能的平台</p>
+          <div class="stack">MVVM · Hilt · Kotlin</div>
+          <ul>
+            <li>以 Kotlin 重構專案</li>
+            <li>引入單元測試，商業邏輯覆蓋率超過 80%</li>
+            <li>優化 App 記憶體使用，降低記憶體使用 50%</li>
+            <li>引入 LeakCanary、Crashlytics 追蹤線上狀況</li>
+            <li>透過數據分析提出優化重構及新功能</li>
+            <li>通過行動應用 App 基本資安標章（MAS 標章）</li>
+          </ul>
+        </div>
+
+        <div class="proj-card">
+          <h3>CypherCom</h3>
+          <p class="sub">提供特殊加密的通訊平台</p>
+          <div class="stack">MVVM · Hilt · Kotlin</div>
+          <ul>
+            <li>以 Kotlin 重構專案</li>
+            <li>引入單元測試</li>
+            <li>引入 Crashlytics 追蹤上線狀況</li>
+          </ul>
+        </div>
+
+        <div class="proj-card">
+          <h3>WA message recover-backup</h3>
+          <p class="sub">提供備份通訊軟體內容的功能</p>
+          <div class="stack">MVVM · Hilt</div>
+          <ul>
+            <li>上架三個月後，達到百萬下載量</li>
+            <li>維持 App 的未崩潰率達 99% 以上</li>
+            <li>透過數據平台分析，調整需求及功能</li>
+            <li>加入遠端通知及本地偵測通知功能</li>
+            <li>新增多媒體資源備份功能</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== Side Projects ===== -->
+    <section id="side-projects">
+      <div class="section-label">05 / Side Projects</div>
+      <h2>個人專案</h2>
+      <p style="color: var(--text-soft); margin: -12px 0 24px;">
+        利用工作之外的時間開發、目前仍持續維護的專案，用來實驗跨平台技術與自動化流程。
+      </p>
+      <div class="proj-grid">
+
+        <div class="proj-card">
+          <h3>KaHe 卡盒</h3>
+          <p class="sub">集換式卡牌遊戲的牌組建構與卡池瀏覽工具</p>
+          <div class="stack">Kotlin Multiplatform · Compose Multiplatform</div>
+          <div class="platforms">
+            <span class="platform">Android</span>
+            <span class="platform">iOS</span>
+            <span class="platform">Desktop</span>
+            <span class="platform">Web / Wasm</span>
+          </div>
+          <ul>
+            <li>單一 Kotlin 程式庫共用 UI 與商業邏輯，同時發佈到五個平台</li>
+            <li>資料層以通用卡片模型設計，可擴充支援不同卡牌遊戲；目前內建 Weiß Schwarz 與排球少年 TCG</li>
+            <li>離線優先的卡片資料 bundle 機制，處理各平台資源載入差異</li>
+            <li>建置卡片翻譯流程，累積譯出數千張卡片文字</li>
+          </ul>
+          <div class="link-row"><span class="muted">原始碼私有 · 可於面試時展示</span></div>
+        </div>
+
+        <div class="proj-card">
+          <h3>Card Radar</h3>
+          <p class="sub">卡牌商品到貨監控與通知系統</p>
+          <div class="stack">Python · GitHub Actions · Firestore · React</div>
+          <div class="platforms">
+            <span class="platform">Web</span>
+            <span class="platform">Telegram Bot</span>
+          </div>
+          <ul>
+            <li>以 GitHub Actions 排程定時爬取 8 家日本卡牌商店的在庫與價格，無需自架伺服器</li>
+            <li>抓取或解析異常時保留前一次基準，避免誤判大量下架而發出錯誤通知</li>
+            <li>偵測到新品即透過 Telegram Bot 推播</li>
+            <li>資料同步至 Cloud Firestore，並提供 React 儀表板；以 Google 登入搭配 Firestore Rules 控管存取</li>
+          </ul>
+          <div class="link-row">
+            <a href="https://github.com/WayneHe1221/automation" target="_blank" rel="noopener">GitHub →</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section id="contact">
+      <div class="section-label">06 / Contact</div>
+      <h2>聯絡方式</h2>
+      <div class="contact-list">
+        <div class="contact-row">
+          <span class="k">Email</span>
+          <a href="mailto:thumbe31949@gmail.com">thumbe31949@gmail.com</a>
+        </div>
+        <div class="contact-row">
+          <span class="k">Location</span>
+          <span>台灣・新北市</span>
+        </div>
+        <div class="contact-row">
+          <span class="k">GitHub</span>
+          <a href="https://github.com/WayneHe1221" target="_blank" rel="noopener">github.com/WayneHe1221</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © <span id="year">2026</span> 何玟叡 Wayne He · Built as a static site on GitHub Pages
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
 </html>
