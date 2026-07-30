@@ -298,8 +298,35 @@
     }
     /* 專案經歷：卡片內容較多，一列只放一個，讀起來不會被壓縮 */
     .proj-grid.single { grid-template-columns: 1fr; }
+
+    /* 整列寬的卡片改用左右分欄：截圖靠左、條列靠右，
+       填掉原本兩側的空白，卡片高度也縮短不少。 */
+    .proj-grid.single .proj-card {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      column-gap: 24px;
+      align-items: start;
+    }
+    /* 標題與底部連結列橫跨整個卡片寬度 */
+    .proj-grid.single .proj-card > h3,
+    .proj-grid.single .proj-card > .proj-org,
+    .proj-grid.single .proj-card > .sub,
+    .proj-grid.single .proj-card > .stack,
+    .proj-grid.single .proj-card > .badges,
+    .proj-grid.single .proj-card > .platforms,
+    .proj-grid.single .proj-card > .shots-note,
+    .proj-grid.single .proj-card > .link-row { grid-column: 1 / -1; }
+    .proj-grid.single .proj-card > .shots { grid-column: 1; }
+    .proj-grid.single .proj-card > ul { grid-column: 2; }
+    /* 沒有截圖的卡片，條列自己占滿整列 */
+    .proj-grid.single .proj-card:not(:has(.shots)) > ul { grid-column: 1 / -1; }
+    /* grid 中 margin-top:auto 不再產生推擠效果，改用固定間距 */
+    .proj-grid.single .proj-card > .link-row { margin-top: 16px; }
     @media (max-width: 760px) {
       .proj-grid { grid-template-columns: 1fr; }
+      /* 窄螢幕放不下「截圖 + 條列」並排，收回上下堆疊 */
+      .proj-grid.single .proj-card { display: flex; flex-direction: column; }
+      .proj-grid.single .proj-card > .link-row { margin-top: auto; }
     }
     .proj-card {
       border: 1px solid var(--border);
