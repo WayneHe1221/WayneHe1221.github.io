@@ -303,7 +303,9 @@
        填掉原本兩側的空白，卡片高度也縮短不少。 */
     .proj-grid.single .proj-card {
       display: grid;
-      grid-template-columns: max-content 1fr;
+      /* 截圖欄貼合內容寬度，但以 .shots 的 max-width 為上限：
+         3 張以內剛好排滿，超過就在欄內左右捲動；沒有截圖時軌道收成 0。 */
+      grid-template-columns: minmax(0, max-content) 1fr;
       column-gap: 24px;
       align-items: start;
     }
@@ -322,11 +324,49 @@
     .proj-grid.single .proj-card:not(:has(.shots)) > ul { grid-column: 1 / -1; }
     /* grid 中 margin-top:auto 不再產生推擠效果，改用固定間距 */
     .proj-grid.single .proj-card > .link-row { margin-top: 16px; }
+
+    /* 截圖超過 3 張時在欄內左右捲動 */
+    .proj-grid.single .shots {
+      max-width: 244px;   /* 約等於 3 張縮圖的寬度 */
+      scroll-snap-type: inline proximity;
+      overscroll-behavior-inline: contain;
+    }
+    .proj-grid.single .shots button { scroll-snap-align: start; }
+
+    /* 捲動箭頭（由 JS 在有溢出時才插入，沒有 JS 也還能原生捲動） */
+    .shots-wrap { position: relative; min-width: 0; }
+    .proj-grid.single .proj-card > .shots-wrap { grid-column: 1; }
+    .shots-nav {
+      position: absolute;
+      top: 68px;   /* 2px 上內距 + 132px 縮圖的一半，對齊縮圖垂直中心 */
+      transform: translateY(-50%);
+      width: 26px;
+      height: 26px;
+      padding: 0;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--bg);
+      color: var(--text);
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    .shots-nav:hover { border-color: var(--accent); color: var(--accent); }
+    .shots-nav:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .shots-nav svg { width: 15px; height: 15px; }
+    .shots-nav-prev { left: -10px; }
+    .shots-nav-next { right: -10px; }
+    /* display: grid 會蓋掉 hidden 屬性預設的 display: none，要補回來 */
+    .shots-nav[hidden] { display: none; }
     @media (max-width: 760px) {
       .proj-grid { grid-template-columns: 1fr; }
       /* 窄螢幕放不下「截圖 + 條列」並排，收回上下堆疊 */
       .proj-grid.single .proj-card { display: flex; flex-direction: column; }
       .proj-grid.single .proj-card > .link-row { margin-top: auto; }
+      /* 堆疊後截圖列可用整個卡片寬度，解除 3 張的寬度上限 */
+      .proj-grid.single .shots { max-width: none; }
     }
     .proj-card {
       border: 1px solid var(--border);
@@ -337,7 +377,21 @@
       transition: box-shadow 0.15s ease, transform 0.15s ease;
     }
     .proj-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
-    .proj-card h3 { margin: 0 0 4px; font-size: 1.08rem; }
+    .proj-card h3 {
+      margin: 0 0 4px;
+      font-size: 1.08rem;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    /* 上架產品的 App icon */
+    .app-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      flex: none;
+      background: var(--bg-alt);
+    }
     .proj-card .proj-org {
       font-size: 0.78rem;
       color: var(--accent);
@@ -730,7 +784,7 @@
       <div class="proj-grid single">
 
         <div class="proj-card">
-          <h3>中華網安助手</h3>
+          <h3><img class="app-icon" src="assets/icons/cht.png" alt="" width="26" height="26">中華網安助手</h3>
           <p class="proj-org">CHT Security 中華資安國際</p>
           <p class="sub">提供用戶操作付費通信網路功能的平台</p>
           <div class="stack">MVVM · Hilt · Kotlin</div>
@@ -770,7 +824,7 @@
         </div>
 
         <div class="proj-card">
-          <h3>CypherCom</h3>
+          <h3><img class="app-icon" src="assets/icons/cyphercom.png" alt="" width="26" height="26">CypherCom</h3>
           <p class="proj-org">CHT Security 中華資安國際</p>
           <p class="sub">提供特殊加密的通訊平台</p>
           <div class="stack">MVVM · Hilt · Kotlin</div>
@@ -804,7 +858,7 @@
         </div>
 
         <div class="proj-card">
-          <h3>Animated Sticker Maker for WA</h3>
+          <h3><img class="app-icon" src="assets/icons/sticker.png" alt="" width="26" height="26">Animated Sticker Maker for WA</h3>
           <p class="proj-org">立應科技有限公司</p>
           <p class="sub">動態貼圖瀏覽與自製貼圖工具</p>
           <div class="stack">MVVM · Hilt · OpenCV · WebP</div>
@@ -850,7 +904,7 @@
         </div>
 
         <div class="proj-card">
-          <h3>HKTVmall</h3>
+          <h3><img class="app-icon" src="assets/icons/hktvmall.png" alt="" width="26" height="26">HKTVmall</h3>
           <p class="proj-org">英屬維京群島商易創投有限公司</p>
           <p class="sub">香港最大線上購物平台的 Android App</p>
           <div class="stack">MVVM · ExoPlayer · Google Analytics</div>
@@ -898,7 +952,7 @@
       <div class="proj-grid">
 
         <div class="proj-card">
-          <h3>KaHe 卡盒</h3>
+          <h3><img class="app-icon" src="assets/icons/kahe.png" alt="" width="26" height="26">KaHe 卡盒</h3>
           <p class="sub">集換式卡牌遊戲的牌組建構與卡池瀏覽工具</p>
           <div class="badges">
             <span class="badge badge-ai">
@@ -1117,6 +1171,56 @@
         if (e.key === "Escape") close();
         else if (e.key === "ArrowLeft") step(-1);
         else if (e.key === "ArrowRight") step(1);
+      });
+    })();
+
+    // ---- 專案經歷的截圖左右捲動 ----
+    // 箭頭插在 .shots 外層，才不會被上面燈箱的 ".shots button" 選到。
+    (function () {
+      var CHEVRON = {
+        prev: "M15 5l-7 7 7 7",
+        next: "M9 5l7 7-7 7"
+      };
+
+      document.querySelectorAll(".proj-grid.single .shots").forEach(function (strip) {
+        var wrap = document.createElement("div");
+        wrap.className = "shots-wrap";
+        strip.parentNode.insertBefore(wrap, strip);
+        wrap.appendChild(strip);
+
+        function makeNav(dir, label) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "shots-nav shots-nav-" + dir;
+          b.setAttribute("aria-label", label);
+          b.innerHTML =
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"' +
+            ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+            '<path d="' + CHEVRON[dir] + '"/></svg>';
+          b.addEventListener("click", function () {
+            var by = Math.round(strip.clientWidth * 0.8);
+            strip.scrollBy({ left: dir === "prev" ? -by : by, behavior: "smooth" });
+          });
+          wrap.appendChild(b);
+          return b;
+        }
+
+        var prev = makeNav("prev", "上一張截圖");
+        var next = makeNav("next", "下一張截圖");
+
+        // 沒有溢出就兩顆都藏起來；捲到頭尾時各藏一顆
+        function sync() {
+          var max = strip.scrollWidth - strip.clientWidth;
+          var scrollable = max > 2;
+          prev.hidden = !scrollable || strip.scrollLeft <= 2;
+          next.hidden = !scrollable || strip.scrollLeft >= max - 2;
+        }
+
+        strip.addEventListener("scroll", sync, { passive: true });
+        window.addEventListener("resize", sync);
+        // 圖片載入後寬度才確定，load 時再算一次
+        window.addEventListener("load", sync);
+        sync();
       });
     })();
   </script>
