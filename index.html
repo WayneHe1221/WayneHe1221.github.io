@@ -296,6 +296,8 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));   /* 固定一列 2 個 */
       gap: 18px;
     }
+    /* 專案經歷：卡片內容較多，一列只放一個，讀起來不會被壓縮 */
+    .proj-grid.single { grid-template-columns: 1fr; }
     @media (max-width: 760px) {
       .proj-grid { grid-template-columns: 1fr; }
     }
@@ -698,7 +700,7 @@
     <section id="projects">
       <div class="section-label">04 / Projects</div>
       <h2>專案經歷</h2>
-      <div class="proj-grid">
+      <div class="proj-grid single">
 
         <div class="proj-card">
           <h3>中華網安助手</h3>
