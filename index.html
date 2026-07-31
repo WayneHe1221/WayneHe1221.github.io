@@ -19,6 +19,45 @@
   <meta name="twitter:description" content="6 年 Android 開發經驗，專注於 MVVM 架構、Jetpack 與 Kotlin Multiplatform 跨平台技術。">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+
+  <!-- 結構化資料：讓搜尋引擎把這頁認成「一個人」而不只是一份網頁 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "何玟叡",
+    "alternateName": "Wayne He",
+    "url": "https://waynehe1221.github.io/",
+    "email": "mailto:thumbe31949@gmail.com",
+    "jobTitle": "Android 資深高階工程師",
+    "description": "擁有 6 年 Android 開發經驗，專注於 MVVM 架構與 Jetpack，並投入行動裝置端 AI 運算應用與 Kotlin Multiplatform 跨平台開發。",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "中華資安國際股份有限公司",
+      "alternateName": "CHT Security",
+      "url": "https://www.chtsecurity.com/"
+    },
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "臺北市立大學 資訊科學系"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "新北市",
+      "addressCountry": "TW"
+    },
+    "knowsAbout": [
+      "Android", "Kotlin", "Java", "Jetpack Compose", "MVVM",
+      "Kotlin Multiplatform", "Compose Multiplatform",
+      "行動裝置端 AI 推論", "Mobile Application Security"
+    ],
+    "sameAs": [
+      "https://github.com/WayneHe1221",
+      "https://tw.linkedin.com/in/%E7%8E%9F%E5%8F%A1-%E4%BD%95-82a766b1"
+    ]
+  }
+  </script>
+
   <script>
     // 在渲染前套用主題，避免深色模式使用者看到白底閃爍
     (function () {
@@ -50,6 +89,9 @@
       --pending-bg: #fff4e5;
       --pending-fg: #8a4b00;
       --pending-border: #ffe0b8;
+      --ok-bg: #e6f7ec;
+      --ok-fg: #1a7f37;
+      --ok-border: #b7e4c7;
       --radius: 10px;
       --maxw: 800px;
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC",
@@ -79,6 +121,9 @@
         --pending-bg: rgba(245, 158, 11, 0.16);
         --pending-fg: #fcd34d;
         --pending-border: rgba(245, 158, 11, 0.38);
+      --ok-bg: rgba(63, 185, 80, 0.16);
+      --ok-fg: #57d364;
+      --ok-border: rgba(63, 185, 80, 0.38);
       }
     }
     :root[data-theme="dark"] {
@@ -100,6 +145,9 @@
       --pending-bg: rgba(245, 158, 11, 0.16);
       --pending-fg: #fcd34d;
       --pending-border: rgba(245, 158, 11, 0.38);
+      --ok-bg: rgba(63, 185, 80, 0.16);
+      --ok-fg: #57d364;
+      --ok-border: rgba(63, 185, 80, 0.38);
     }
 
     * { box-sizing: border-box; }
@@ -450,7 +498,63 @@
       color: var(--pending-fg);
       border-color: var(--pending-border);
     }
+    /* 現在主力投入的產品 */
+    .badge-flagship {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .badge-new {
+      background: var(--ok-bg);
+      color: var(--ok-fg);
+      border-color: var(--ok-border);
+    }
+    .badge-cert {
+      background: var(--bg-alt);
+      color: var(--text-soft);
+      border-color: var(--border);
+    }
     .badge svg { width: 12px; height: 12px; }
+
+    /* ---- 專利與認證 ---- */
+    .cert-list { display: flex; flex-direction: column; gap: 16px; }
+    .cert-item {
+      display: flex;
+      gap: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-alt);
+      padding: 18px 20px;
+    }
+    .cert-kind {
+      flex: none;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-soft);
+      border-radius: 4px;
+      padding: 3px 8px;
+      height: fit-content;
+      margin-top: 3px;
+      white-space: nowrap;
+    }
+    .cert-body { min-width: 0; }
+    .cert-body h3 { margin: 0 0 6px; font-size: 1rem; line-height: 1.5; }
+    .cert-meta {
+      margin: 0 0 8px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: var(--text-soft);
+    }
+    .cert-desc { margin: 0 0 10px; font-size: 0.9rem; color: var(--text-soft); }
+    .cert-body .link-row { margin: 0; }
+    @media (max-width: 560px) {
+      .cert-item { flex-direction: column; gap: 10px; }
+      .cert-kind { margin-top: 0; }
+    }
 
     /* ---- Screenshot gallery ---- */
     .shots {
@@ -596,6 +700,63 @@
       .skill-card { flex-direction: column; align-items: stretch; gap: 10px; }
       .skill-card h3 { width: auto; }
     }
+
+    /* ---- 列印 / 另存 PDF ----
+       瀏覽器「列印 → 儲存為 PDF」就會套用這組樣式：強制淺色、
+       攤平橫向捲動的截圖列、避免卡片被分頁切斷。 */
+    .print-only { display: none; }
+    @media print {
+      /* 不管使用者當下是深色或淺色，列印一律用淺色，避免整頁滿版深底 */
+      :root, :root[data-theme="dark"], :root[data-theme="light"] {
+        --bg: #ffffff;
+        --bg-alt: #ffffff;
+        --text: #000000;
+        --text-soft: #444444;
+        --border: #bbbbbb;
+        --accent: #14507d;
+        --accent-soft: #eef3f8;
+        --ai-bg: #f4f4f4;
+        --ai-fg: #333333;
+        --ai-border: #cccccc;
+        --pending-bg: #f4f4f4;
+        --pending-fg: #333333;
+        --pending-border: #cccccc;
+        --ok-bg: #f4f4f4;
+        --ok-fg: #333333;
+        --ok-border: #cccccc;
+        --shadow: none;
+      }
+      @page { margin: 14mm 12mm; }
+      html { scroll-behavior: auto; }
+      body { line-height: 1.55; font-size: 10.5pt; }
+      .nav, .theme-toggle, .hero-cta, .lightbox, .shots-nav { display: none !important; }
+      .print-only { display: block; }
+      main { padding: 0; }
+      .hero { padding: 0 0 12px; }
+      section { margin-top: 18px; }
+      /* 卡片、經歷、認證盡量不要被切在兩頁之間 */
+      .proj-card, .item, .cert-item, .skill-card { break-inside: avoid; }
+      h2, h3, .section-label { break-after: avoid; }
+      .proj-card { box-shadow: none; }
+      /* 螢幕上是橫向捲動，列印時攤成可換行、縮小的縮圖 */
+      .shots {
+        overflow: visible !important;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+      .shots img { height: 78px; }
+      .shots-wrap { overflow: visible !important; }
+      /* 列印時把重要連結的網址一起印出來，紙本才追得到 */
+      .cert-body .store-link::after,
+      .contact-row a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--text-soft);
+        word-break: break-all;
+      }
+      footer { margin-top: 24px; border-top: 1px solid var(--border); }
+    }
   </style>
 </head>
 <body>
@@ -608,6 +769,7 @@
           <a href="#about">關於我</a>
           <a href="#skills">技能</a>
           <a href="#experience">工作經歷</a>
+          <a href="#credentials">專利認證</a>
           <a href="#projects">專案</a>
           <a href="#side-projects">個人專案</a>
           <a href="#contact">聯絡</a>
@@ -633,15 +795,16 @@
     <!-- ===== Hero ===== -->
     <section class="hero" id="top">
       <h1>何玟叡 <span class="en">Wayne He</span></h1>
-      <p class="role">Senior Android Engineer · Android 開發工程師</p>
+      <p class="role">Android 資深高階工程師 · MVVM / Jetpack / Kotlin Multiplatform</p>
       <p>
         擁有 6 年 Android 開發經驗，專注於以 MVVM 架構與 Jetpack 撰寫更高效、更穩定的應用程式，
-        並持續往 Kotlin Multiplatform、Flutter 等跨平台技術延伸。期望為團隊帶來新的助力，
-        推動 App 產品全面性的成長。
+        近期投入行動裝置端的 AI 運算應用並取得發明專利，同時以 Kotlin Multiplatform 延伸跨平台開發。
+        期望為團隊帶來新的助力，推動 App 產品全面性的成長。
       </p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#contact">聯絡我</a>
         <a class="btn btn-ghost" href="https://github.com/WayneHe1221" target="_blank" rel="noopener">GitHub</a>
+        <button class="btn btn-ghost" type="button" id="printBtn">下載 PDF</button>
       </div>
     </section>
 
@@ -652,7 +815,7 @@
       <p>
         6 年 Android 開發經驗，具備以 <strong>Kotlin / Java</strong> 維護及開發專案的經驗，
         目前專注於以 <strong>MVVM 架構</strong> 及 <strong>Jetpack</strong> 撰寫更高效的應用程式，
-        對 <strong>跨平台技術</strong> 也有所涉獵，包含 Kotlin Multiplatform 及 Flutter，
+        並以 <strong>Kotlin Multiplatform</strong> 實作可同時發佈到五個平台的跨平台專案，
         喜歡透過參與研討會及聚會獲取技術新知。
       </p>
       <p>
@@ -681,27 +844,45 @@
           </div>
         </div>
         <div class="skill-card">
-          <h3>網路請求</h3>
+          <h3>架構與測試</h3>
           <div class="tags">
-            <span class="tag">Retrofit</span>
-            <span class="tag">OkHttp</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <h3>測試</h3>
-          <div class="tags">
+            <span class="tag">MVVM</span>
             <span class="tag">JUnit</span>
             <span class="tag">Mockk</span>
           </div>
         </div>
         <div class="skill-card">
-          <h3>其他</h3>
+          <h3>網路與資料</h3>
           <div class="tags">
-            <span class="tag">JNI</span>
-            <span class="tag">Kotlin Multiplatform</span>
-            <span class="tag">MediaPipe</span>
+            <span class="tag">Retrofit</span>
+            <span class="tag">OkHttp</span>
             <span class="tag">SQLCipher</span>
+            <span class="tag">Firestore</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>跨平台</h3>
+          <div class="tags">
+            <span class="tag">Kotlin Multiplatform</span>
+            <span class="tag">Compose Multiplatform</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>影音與 AI</h3>
+          <div class="tags">
+            <span class="tag">MediaPipe</span>
+            <span class="tag">ExoPlayer</span>
+            <span class="tag">OpenCV</span>
+            <span class="tag">JNI</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>工具與監控</h3>
+          <div class="tags">
+            <span class="tag">Crashlytics</span>
+            <span class="tag">LeakCanary</span>
             <span class="tag">Google Analytics</span>
+            <span class="tag">GitHub Actions</span>
           </div>
         </div>
       </div>
@@ -715,25 +896,22 @@
 
         <div class="item">
           <div class="when">2023.06 – Present · Taipei, Taiwan</div>
-          <h3>資深高階工程師</h3>
+          <h3>Android 資深高階工程師</h3>
           <div class="org">CHT Security 中華資安國際</div>
           <div class="roles">
             <div class="role-row">
-              <span class="role-name">資深高階工程師</span>
-              <span class="role-when">2026.03 – Present</span>
-            </div>
-            <div class="role-row">
-              <span class="role-name">高階工程師</span>
+              <span class="role-name">升遷自 高階工程師</span>
               <span class="role-when">2023.06 – 2026.03</span>
             </div>
           </div>
-          <p class="desc">專責 Android 開發，開發通信網路功能平台以及通訊產品，並根據數據提出產品未來方向及優化。</p>
+          <p class="desc">專責 Android 開發，負責通信網路功能平台、加密通訊與防詐產品，並根據數據提出產品未來方向及優化。</p>
           <ul>
-            <li>開發通信應用技術、防護應用技術、專利保護等</li>
+            <li>行動裝置端的 AI 運算應用技術研究，並將端側詐騙偵測落地為上架產品「防詐隊長」</li>
+            <li>研究成果取得中華民國發明專利（第一發明人，證書號 I904976）</li>
+            <li>開發通信防護應用技術，產品通過行動應用 App 基本資安標章（MAS 標章）</li>
             <li>引入 MVVM 及單元測試，以提升專案穩定性</li>
             <li>建構開發流程及自動化佈署工作</li>
             <li>整理研討會及技術新知，促進內部技術交流</li>
-            <li>行動裝置端的 AI 運算應用技術研究</li>
           </ul>
         </div>
 
@@ -777,15 +955,116 @@
       </div>
     </section>
 
+    <!-- ===== Patents & Certifications ===== -->
+    <section id="credentials">
+      <div class="section-label">04 / Patents &amp; Certifications</div>
+      <h2>專利與認證</h2>
+      <div class="cert-list">
+
+        <div class="cert-item">
+          <span class="cert-kind">發明專利</span>
+          <div class="cert-body">
+            <h3>利用人工智慧防詐之使用者裝置、方法及電腦可讀媒介</h3>
+            <p class="cert-meta">
+              中華民國專利證書號 I904976 ／ 2025.11.11 公告 ／ 申請日 2024.12.20（案號 113149965）<br>
+              申請人：中華資安國際股份有限公司 ／ <strong>第一發明人</strong>
+            </p>
+            <p class="cert-desc">
+              以端側 AI 模型解析裝置上的推播通知，判定詐騙訊息後告警並移除高風險通知；
+              分析結果回傳優化後再更新裝置端模型。此專利即「防詐隊長」的核心技術。
+            </p>
+            <div class="link-row stores">
+              <a class="store-link" href="https://tiponet.tipo.gov.tw/twpat1/twpatusr/00227/GA-I904976.pdf?392085763"
+                 target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                專利公報 PDF
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cert-item">
+          <span class="cert-kind">資安標章</span>
+          <div class="cert-body">
+            <h3>行動應用 App 基本資安標章（MAS 標章）</h3>
+            <p class="cert-meta">中華網安助手 ／ CHT Security 中華資安國際</p>
+            <p class="cert-desc">依 MAS 基本資安規範完成檢測並取得標章。</p>
+          </div>
+        </div>
+
+        <div class="cert-item">
+          <span class="cert-kind">平台認證</span>
+          <div class="cert-body">
+            <h3>Google CTS 相容性測試</h3>
+            <p class="cert-meta">Android TV 裝置 ／ 傲視科技 StrateVision</p>
+            <p class="cert-desc">協助裝置通過 Google 官方 CTS 相關認證。</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- ===== Projects ===== -->
     <section id="projects">
-      <div class="section-label">04 / Projects</div>
+      <div class="section-label">05 / Projects</div>
       <h2>專案經歷</h2>
       <div class="proj-grid single">
 
         <div class="proj-card">
+          <h3><img class="app-icon" src="assets/icons/fraud.png" alt="" width="26" height="26">防詐隊長</h3>
+          <p class="proj-org">CHT Security 中華資安國際</p>
+          <div class="badges">
+            <span class="badge badge-flagship">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 5.7L19.6 9l-4.3 3.6 1.4 5.9L12 15.3 7.3 18.5l1.4-5.9L4.4 9l5.7-1.3L12 2z"/></svg>
+              主力產品
+            </span>
+            <span class="badge badge-new">2026.07 上線</span>
+          </div>
+          <p class="sub">以端側 AI 即時偵測詐騙訊息的防護 App</p>
+          <div class="stack">MVVM · Hilt · Kotlin · NotificationListenerService · 端側 AI 推論</div>
+          <div class="shots" data-gallery="fraud">
+            <button type="button" data-src="assets/shots/fraud-1.jpg" data-cap="防詐隊長 — 首頁：即時偵測狀態與防詐快訊">
+              <img src="assets/shots/fraud-1.jpg" alt="防詐隊長 首頁，顯示正在即時偵測的狀態、已監控的應用程式數與防詐快訊" loading="lazy" width="401" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/fraud-2.jpg" data-cap="防詐隊長 — 偵測紀錄：依高風險／可疑／低風險分級，並可回報判定結果">
+              <img src="assets/shots/fraud-2.jpg" alt="防詐隊長 偵測紀錄，訊息依風險等級分類並可回報高風險或低風險" loading="lazy" width="401" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/fraud-3.jpg" data-cap="防詐隊長 — AI 偵查員：貼上可疑訊息或網址即時分析">
+              <img src="assets/shots/fraud-3.jpg" alt="防詐隊長 AI 偵查員對話畫面，可輸入可疑訊息或網址進行風險分析" loading="lazy" width="401" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/fraud-4.jpg" data-cap="防詐隊長 — 設定：通知權限、自動移除高風險通知與防護範圍">
+              <img src="assets/shots/fraud-4.jpg" alt="防詐隊長 設定畫面，含通知內容權限、自動移除高風險通知與選擇要防護的應用程式" loading="lazy" width="401" height="900">
+            </button>
+          </div>
+          <ul>
+            <li>2026 年 7 月上線的新產品，負責 Android 端開發</li>
+            <li>主動防禦：常駐解析 SMS、LINE、Messenger 的通知內容，使用者無須手動複製貼上即可於背景偵測風險</li>
+            <li>詐騙判定在裝置端完成推論，命中時發出告警，並可自動移除高風險通知以降低誤觸</li>
+            <li>AI 偵查員：一鍵貼上可疑訊息或網址即時分析潛在風險</li>
+            <li>使用者可回報風險判定（高／低風險），回饋用於後續模型優化</li>
+            <li>核心技術取得中華民國發明專利 I904976（第一發明人）</li>
+          </ul>
+          <p class="shots-note">截圖取自 Google Play 商店頁公開素材。</p>
+          <div class="link-row stores">
+            <a class="store-link" href="https://play.google.com/store/apps/details?id=com.chtsecurity.fraud.detector"
+               target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.8a1 1 0 0 0-.6.9v18.6a1 1 0 0 0 .6.9l10-9.9-10-10.5zm11.4 8.4 2.8-2.7-9.2-5.2 6.4 7.9zm0 3.6-6.4 7.9 9.2-5.2-2.8-2.7zm4.2-1.8 2.4-1.4c.5-.3.5-1.1 0-1.4l-2.4-1.3-2.9 2 2.9 2.1z"/></svg>
+              Google Play
+            </a>
+          </div>
+        </div>
+
+        <div class="proj-card">
           <h3><img class="app-icon" src="assets/icons/cht.png" alt="" width="26" height="26">中華網安助手</h3>
           <p class="proj-org">CHT Security 中華資安國際</p>
+          <div class="badges">
+            <span class="badge badge-flagship">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 5.7L19.6 9l-4.3 3.6 1.4 5.9L12 15.3 7.3 18.5l1.4-5.9L4.4 9l5.7-1.3L12 2z"/></svg>
+              主力產品
+            </span>
+            <span class="badge badge-cert">MAS 資安標章</span>
+          </div>
           <p class="sub">提供用戶操作付費通信網路功能的平台</p>
           <div class="stack">MVVM · Hilt · Kotlin</div>
           <div class="shots" data-gallery="cht">
@@ -805,11 +1084,12 @@
           <ul>
             <li>以 Kotlin 重構專案</li>
             <li>引入單元測試，商業邏輯覆蓋率超過 80%</li>
-            <li>優化 App 記憶體使用，降低記憶體使用 50%</li>
+            <li>優化記憶體使用，峰值降低 50%</li>
             <li>引入 LeakCanary、Crashlytics 追蹤線上狀況</li>
             <li>透過數據分析提出優化重構及新功能</li>
             <li>通過行動應用 App 基本資安標章（MAS 標章）</li>
           </ul>
+          <p class="shots-note">截圖取自 Google Play 商店頁公開素材。</p>
           <div class="link-row stores">
             <a class="store-link" href="https://play.google.com/store/apps/details?id=com.CHT.CyberSecurityAssistant"
                target="_blank" rel="noopener">
@@ -844,6 +1124,7 @@
             <li>引入單元測試</li>
             <li>引入 Crashlytics 追蹤上線狀況</li>
           </ul>
+          <p class="shots-note">截圖取自 Google Play 商店頁公開素材。</p>
           <div class="link-row stores">
             <a class="store-link" href="https://play.google.com/store/apps/details?id=com.chtsecurity.cyphercom"
                target="_blank" rel="noopener">
@@ -879,6 +1160,7 @@
             <li>維護廣告 SDK 串接，維持產品變現</li>
             <li>維持 App 的未崩潰率達 99% 以上</li>
           </ul>
+          <p class="shots-note">截圖取自 Google Play 商店頁公開素材。</p>
           <div class="link-row stores">
             <a class="store-link" href="https://play.google.com/store/apps/details?id=com.nut.id.sticker"
                target="_blank" rel="noopener">
@@ -938,6 +1220,7 @@
             <li>翻新 Google Analytics 埋點模組與埋點位置</li>
             <li>基於前端商業邏輯部署，實作推薦商品給用戶的功能</li>
           </ul>
+          <p class="shots-note">截圖取自 Google Play 商店頁公開素材。</p>
           <div class="link-row stores">
             <a class="store-link" href="https://play.google.com/store/apps/details?id=com.hktv.android.hktvmall"
                target="_blank" rel="noopener">
@@ -956,10 +1239,10 @@
 
     <!-- ===== Side Projects ===== -->
     <section id="side-projects">
-      <div class="section-label">05 / Side Projects</div>
+      <div class="section-label">06 / Side Projects</div>
       <h2>個人專案</h2>
       <p style="color: var(--text-soft); margin: -12px 0 24px;">
-        利用工作之外的時間開發、目前仍持續維護的專案，用來實驗跨平台技術與自動化流程。
+        利用工作之外的時間開發、目前仍持續維護的專案。善用 AI 帶來的生產力紅利，把腦中的想法快速做成真正能上線、能長期運作的產品，同時實驗跨平台技術與自動化流程。
       </p>
       <div class="proj-grid">
 
@@ -969,7 +1252,7 @@
           <div class="badges">
             <span class="badge badge-ai">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 5.7L19.6 9l-4.3 3.6 1.4 5.9L12 15.3 7.3 18.5l1.4-5.9L4.4 9l5.7-1.3L12 2z"/></svg>
-              AI 協作開發
+              AI 加速實現
             </span>
             <span class="badge badge-pending">Google Play 送審中</span>
           </div>
@@ -1003,7 +1286,7 @@
             <li>資料層以通用卡片模型設計，可擴充支援不同卡牌遊戲；目前內建 Weiß Schwarz 與排球少年 TCG</li>
             <li>離線優先的卡片資料 bundle 機制，處理各平台資源載入差異；卡表以差異更新（delta）方式 OTA 派送</li>
             <li>建置卡片翻譯流程，累積譯出數千張卡片文字</li>
-            <li><strong>AI 協作方式</strong>：我負責架構設計、跨平台技術選型與程式碼審查驗收，實作大量交由 AI 產出後再逐項驗證（約九成 commit 為 AI 協作產出）</li>
+            <li><strong>開發方式</strong>：由我主導架構設計、跨平台技術選型與逐項驗收，並以 AI 作為實作的加速器 — 讓一個人也能把想法完整實現成五平台可發佈的產品</li>
           </ul>
           <!-- Google Play 版一上架，就把下面這個 <a> 移進 .link-row，並刪掉上方
                badge-pending 那一行「Google Play 送審中」。網址已確定，不用再查。
@@ -1028,7 +1311,7 @@
           <div class="badges">
             <span class="badge badge-ai">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 5.7L19.6 9l-4.3 3.6 1.4 5.9L12 15.3 7.3 18.5l1.4-5.9L4.4 9l5.7-1.3L12 2z"/></svg>
-              部分 AI 協作
+              AI 加速實現
             </span>
           </div>
           <div class="stack">Python · GitHub Actions · Firestore · React</div>
@@ -1046,7 +1329,7 @@
             <li>抓取或解析異常時保留前一次基準，避免誤判大量下架而發出錯誤通知</li>
             <li>偵測到新品即透過 Telegram Bot 推播</li>
             <li>資料同步至 Cloud Firestore，並提供 React 儀表板；以 Google 登入搭配 Firestore Rules 控管存取</li>
-            <li><strong>AI 協作方式</strong>：爬蟲與通知邏輯由我設計，部分修補與重構交由 AI 以 PR 形式提出，我審查後再合併</li>
+            <li><strong>開發方式</strong>：爬蟲與通知邏輯由我設計，日常修補與重構交由 AI 以 PR 形式提出、我審查後合併 — 用 AI 把工餘的想法維持成長期穩定運作的服務</li>
           </ul>
           <p class="shots-note">儀表板需授權的 Google 帳號才能讀取監控資料，連結僅供查看登入頁。</p>
           <div class="link-row stores">
@@ -1066,7 +1349,7 @@
 
     <!-- ===== Contact ===== -->
     <section id="contact">
-      <div class="section-label">06 / Contact</div>
+      <div class="section-label">07 / Contact</div>
       <h2>聯絡方式</h2>
       <div class="contact-list">
         <div class="contact-row">
@@ -1080,6 +1363,11 @@
         <div class="contact-row">
           <span class="k">GitHub</span>
           <a href="https://github.com/WayneHe1221" target="_blank" rel="noopener">github.com/WayneHe1221</a>
+        </div>
+        <div class="contact-row">
+          <span class="k">LinkedIn</span>
+          <a href="https://tw.linkedin.com/in/%E7%8E%9F%E5%8F%A1-%E4%BD%95-82a766b1"
+             target="_blank" rel="noopener">linkedin.com/in/玟叡-何</a>
         </div>
       </div>
     </section>
@@ -1097,10 +1385,17 @@
 
   <footer>
     © <span id="year">2026</span> 何玟叡 Wayne He · Built as a static site on GitHub Pages
+    <span class="print-only">線上版：https://waynehe1221.github.io/</span>
   </footer>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ---- 下載 PDF：走瀏覽器列印，交給使用者選「儲存為 PDF」 ----
+    // 不另外維護一份 PDF 檔，履歷內容改了、輸出就跟著是最新版。
+    document.getElementById("printBtn").addEventListener("click", function () {
+      window.print();
+    });
 
     (function () {
       var root = document.documentElement;
