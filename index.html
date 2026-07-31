@@ -906,7 +906,8 @@
           </div>
           <p class="desc">專責 Android 開發，負責通信網路功能平台、加密通訊與防詐產品，並根據數據提出產品未來方向及優化。</p>
           <ul>
-            <li>行動裝置端的 AI 運算應用技術研究，並將端側詐騙偵測落地為上架產品「防詐隊長」</li>
+            <li>行動裝置端的 AI 運算應用技術研究：主導以 Kotlin Multiplatform 驗證端側 AI 模型的落地可行性，
+              成果轉為原生產品「防詐隊長」（2026.07 上線）</li>
             <li>研究成果取得中華民國發明專利（第一發明人，證書號 I904976）</li>
             <li>開發通信防護應用技術，產品通過行動應用 App 基本資安標章（MAS 標章）</li>
             <li>引入 MVVM 及單元測試，以提升專案穩定性</li>
@@ -1020,8 +1021,9 @@
               主力產品
             </span>
             <span class="badge badge-new">2026.07 上線</span>
+            <span class="badge badge-cert">發明專利 I904976</span>
           </div>
-          <p class="sub">以端側 AI 即時偵測詐騙訊息的防護 App</p>
+          <p class="sub">協助使用者識別詐騙資訊，並在 Android 端直接阻擋詐騙訊息的防護 App</p>
           <div class="stack">MVVM · Hilt · Kotlin · NotificationListenerService · 端側 AI 推論</div>
           <div class="shots" data-gallery="fraud">
             <button type="button" data-src="assets/shots/fraud-1.jpg" data-cap="防詐隊長 — 首頁：即時偵測狀態與防詐快訊">
@@ -1038,9 +1040,14 @@
             </button>
           </div>
           <ul>
-            <li>2026 年 7 月上線的新產品，負責 Android 端開發</li>
-            <li>主動防禦：常駐解析 SMS、LINE、Messenger 的通知內容，使用者無須手動複製貼上即可於背景偵測風險</li>
-            <li>詐騙判定在裝置端完成推論，命中時發出告警，並可自動移除高風險通知以降低誤觸</li>
+            <li>與主管共同架構產品功能藍圖，並負責 Android 端開發至 2026 年 7 月上線</li>
+            <li><strong>產品前身是我主導的技術驗證專案</strong>：以 Kotlin Multiplatform 驗證「前端整併端側 AI 模型」的可行性，
+              實測確認 KMP 具備承載落地模型的能力，成為本產品成立的技術前提；後續配合產品轉型，改以原生 Android 重新實作</li>
+            <li>AI 模型由公司其他單位開發，我負責<strong>前端通知偵測服務</strong>：
+              取得通知內容交由落地模型在手機上運算，訊息不離開裝置，同時兼顧資料安全與判讀效率</li>
+            <li>不只提醒，更能主動處置 —— 偵測到異常通知內容時直接移除該則通知，
+              從源頭降低使用者接觸詐騙的可能性</li>
+            <li>主動防禦覆蓋 SMS、LINE、Messenger，於背景自動偵測，使用者無須手動複製貼上</li>
             <li>AI 偵查員：一鍵貼上可疑訊息或網址即時分析潛在風險</li>
             <li>使用者可回報風險判定（高／低風險），回饋用於後續模型優化</li>
             <li>核心技術取得中華民國發明專利 I904976（第一發明人）</li>
