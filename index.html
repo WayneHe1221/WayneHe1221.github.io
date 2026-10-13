@@ -701,9 +701,8 @@
       .skill-card h3 { width: auto; }
     }
 
-    /* ---- 列印 / 另存 PDF ----
-       瀏覽器「列印 → 儲存為 PDF」就會套用這組樣式：強制淺色、
-       攤平橫向捲動的截圖列、避免卡片被分頁切斷。 */
+    /* ---- PDF 匯出與列印 ----
+       由 scripts/export-resume.mjs 使用這組樣式產生完整履歷。 */
     .print-only { display: none; }
     @media print {
       /* 不管使用者當下是深色或淺色，列印一律用淺色，避免整頁滿版深底 */
@@ -726,36 +725,55 @@
         --ok-border: #cccccc;
         --shadow: none;
       }
-      @page { margin: 14mm 12mm; }
-      html { scroll-behavior: auto; }
+      @page { size: A4; margin: 14mm 14mm 18mm; }
+      html { scroll-behavior: auto; font-size: 12px; color-scheme: light; }
       body { line-height: 1.55; font-size: 10.5pt; }
       .nav, .theme-toggle, .hero-cta, .lightbox, .shots-nav { display: none !important; }
       .print-only { display: block; }
-      main { padding: 0; }
+      main { padding: 0; max-width: none; }
       .hero { padding: 0 0 12px; }
-      section { margin-top: 18px; }
+      .hero h1 { font-size: 28pt; }
+      .hero h1 .en { font-size: 19pt; }
+      .hero p { max-width: none; margin-bottom: 12px; }
+      section { padding: 16px 0 0; margin: 0; }
+      #experience, #projects, #side-projects { break-before: page; padding-top: 0; }
+      h2 { margin-bottom: 12px; font-size: 17pt; }
+      p, li { orphans: 3; widows: 3; }
+      .skills-grid, .cert-list { display: block; }
+      .skill-card { padding: 8px 12px; margin-bottom: 7px; }
+      .edu { margin-top: 12px; padding: 10px 12px; }
+      .item { padding-bottom: 16px; }
+      .item ul { margin-top: 5px; }
+      .item li { margin-bottom: 2px; }
+      .cert-item { padding: 10px 12px; margin-bottom: 8px; }
+      .cert-meta, .cert-desc { margin-bottom: 5px; }
       /* 卡片、經歷、認證盡量不要被切在兩頁之間 */
       .proj-card, .item, .cert-item, .skill-card { break-inside: avoid; }
       h2, h3, .section-label { break-after: avoid; }
-      .proj-card { box-shadow: none; }
+      .proj-grid, .proj-grid.single { display: block; }
+      .proj-card, .proj-grid.single .proj-card {
+        display: block; padding: 14px; margin-bottom: 14px;
+        box-shadow: none; transform: none;
+      }
+      .proj-card h3 { font-size: 13pt; }
+      .proj-card .sub, .proj-card ul { font-size: 10pt; }
+      .proj-card .stack { margin-bottom: 8px; }
+      .proj-card .link-row, .proj-grid.single .proj-card > .link-row {
+        margin-top: 8px; padding-top: 8px;
+      }
       /* 螢幕上是橫向捲動，列印時攤成可換行、縮小的縮圖 */
       .shots {
         overflow: visible !important;
         flex-wrap: wrap;
         gap: 5px;
       }
-      .shots img { height: 78px; }
+      .shots, .proj-grid.single .shots { max-width: none; padding-bottom: 4px; }
+      .shots img { height: 100px; width: auto; }
       .shots-wrap { overflow: visible !important; }
-      /* 列印時把重要連結的網址一起印出來，紙本才追得到 */
-      .cert-body .store-link::after,
-      .contact-row a[href^="http"]::after {
-        content: " (" attr(href) ")";
-        font-family: var(--mono);
-        font-size: 0.72rem;
-        color: var(--text-soft);
-        word-break: break-all;
-      }
-      footer { margin-top: 24px; border-top: 1px solid var(--border); }
+      /* PDF 保留可點擊連結，避免長網址擠壓版面。 */
+      #contact { break-inside: avoid; }
+      .contact-list { gap: 5px; }
+      footer { margin-top: 18px; padding: 12px 0; border-top: 1px solid var(--border); }
     }
   </style>
 </head>
@@ -804,7 +822,7 @@
       <div class="hero-cta">
         <a class="btn btn-primary" href="#contact">聯絡我</a>
         <a class="btn btn-ghost" href="https://github.com/WayneHe1221" target="_blank" rel="noopener">GitHub</a>
-        <button class="btn btn-ghost" type="button" id="printBtn">下載 PDF</button>
+        <a class="btn btn-ghost" href="https://github.com/WayneHe1221/WayneHe1221.github.io/raw/refs/heads/master/output/pdf/Wayne-He-Resume.pdf" download="Wayne-He-Resume.pdf">下載履歷 PDF</a>
       </div>
     </section>
 
@@ -1397,12 +1415,6 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    // ---- 下載 PDF：走瀏覽器列印，交給使用者選「儲存為 PDF」 ----
-    // 不另外維護一份 PDF 檔，履歷內容改了、輸出就跟著是最新版。
-    document.getElementById("printBtn").addEventListener("click", function () {
-      window.print();
-    });
 
     (function () {
       var root = document.documentElement;
