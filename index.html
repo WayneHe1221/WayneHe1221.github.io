@@ -736,7 +736,7 @@
       .hero h1 .en { font-size: 19pt; }
       .hero p { max-width: none; margin-bottom: 12px; }
       section { padding: 16px 0 0; margin: 0; }
-      #experience, #projects, #side-projects { break-before: page; padding-top: 0; }
+      #experience, #side-projects { break-before: page; padding-top: 0; }
       h2 { margin-bottom: 12px; font-size: 17pt; }
       p, li { orphans: 3; widows: 3; }
       .skills-grid, .cert-list { display: block; }
@@ -750,16 +750,33 @@
       /* 卡片、經歷、認證盡量不要被切在兩頁之間 */
       .proj-card, .item, .cert-item, .skill-card { break-inside: avoid; }
       h2, h3, .section-label { break-after: avoid; }
+      #side-projects > p { break-after: avoid; }
       .proj-grid, .proj-grid.single { display: block; }
       .proj-card, .proj-grid.single .proj-card {
-        display: block; padding: 14px; margin-bottom: 14px;
+        display: block; padding: 10px; margin-bottom: 10px;
         box-shadow: none; transform: none;
       }
       .proj-card h3 { font-size: 13pt; }
-      .proj-card .sub, .proj-card ul { font-size: 10pt; }
-      .proj-card .stack { margin-bottom: 8px; }
+      .proj-card .sub, .proj-card ul { font-size: 9.5pt; line-height: 1.45; }
+      .proj-card .sub { margin-bottom: 5px; }
+      .proj-card .stack { margin-bottom: 6px; }
+      .proj-card .badges, .proj-card .platforms { margin-bottom: 6px; }
+      /* 匯出時將截圖與成果並排，讓短專案不再各占一大塊高度。 */
+      .resume-project-body {
+        display: grid;
+        grid-template-columns: 142px minmax(0, 1fr);
+        gap: 12px;
+        align-items: start;
+        margin-bottom: 5px;
+      }
+      .resume-project-body > ul { margin: 0; }
+      .resume-project-body .shots { margin: 0; padding: 0; gap: 4px; }
+      .resume-project-body .shots img { height: 78px; }
+      .resume-project-body .shots button { border-radius: 5px; }
+      .proj-card .shots-note { margin-bottom: 4px; }
+      .proj-card li { margin-bottom: 2px; }
       .proj-card .link-row, .proj-grid.single .proj-card > .link-row {
-        margin-top: 8px; padding-top: 8px;
+        margin-top: 5px; padding-top: 5px;
       }
       /* 螢幕上是橫向捲動，列印時攤成可換行、縮小的縮圖 */
       .shots {
@@ -772,7 +789,11 @@
       .shots-wrap { overflow: visible !important; }
       /* PDF 保留可點擊連結，避免長網址擠壓版面。 */
       #contact { break-inside: avoid; }
-      .contact-list { gap: 5px; }
+      #contact .section-label { display: none; }
+      #contact h2 { font-size: 13pt; margin-bottom: 8px; }
+      .contact-list { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 14px; }
+      .contact-row { gap: 8px; font-size: 9pt; }
+      .contact-row .k { min-width: 48px; }
       footer { margin-top: 18px; padding: 12px 0; border-top: 1px solid var(--border); }
     }
   </style>

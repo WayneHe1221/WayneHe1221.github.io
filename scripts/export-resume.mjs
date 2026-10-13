@@ -22,6 +22,18 @@ try {
     images.forEach(image => { image.loading = 'eager'; });
     await Promise.all(images.map(image => image.decode()));
     await document.fonts.ready;
+    // 聯絡資訊放在第一頁摘要之後，讓專案頁集中呈現作品。
+    document.querySelector('#skills').after(document.querySelector('#contact'));
+    // PDF 專用的左右欄：截圖與成果共用高度，原始網頁的 DOM 與排版不變。
+    document.querySelectorAll('.proj-card').forEach(card => {
+      const gallery = card.querySelector(':scope > .shots-wrap, :scope > .shots');
+      const details = card.querySelector(':scope > ul');
+      if (!gallery || !details) return;
+      const body = document.createElement('div');
+      body.className = 'resume-project-body';
+      gallery.before(body);
+      body.append(gallery, details);
+    });
   });
   await page.pdf({
     path: fileURLToPath(output),
