@@ -358,12 +358,7 @@
       align-items: start;
     }
     /* 標題與底部連結列橫跨整個卡片寬度 */
-    .proj-grid.single .proj-card > h3,
-    .proj-grid.single .proj-card > .proj-org,
-    .proj-grid.single .proj-card > .sub,
-    .proj-grid.single .proj-card > .stack,
-    .proj-grid.single .proj-card > .badges,
-    .proj-grid.single .proj-card > .platforms,
+    .proj-grid.single .proj-card > .proj-header,
     .proj-grid.single .proj-card > .shots-note,
     .proj-grid.single .proj-card > .link-row { grid-column: 1 / -1; }
     .proj-grid.single .proj-card > .shots { grid-column: 1; }
@@ -372,6 +367,23 @@
     .proj-grid.single .proj-card:not(:has(.shots)) > ul { grid-column: 1 / -1; }
     /* grid 中 margin-top:auto 不再產生推擠效果，改用固定間距 */
     .proj-grid.single .proj-card > .link-row { margin-top: 16px; }
+
+    .proj-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .proj-header > div { min-width: 0; }
+    .proj-info > :last-child { margin-bottom: 0; }
+    @media screen and (min-width: 761px) {
+      .proj-grid.single .proj-header {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: 24px;
+      }
+    }
 
     /* 截圖超過 3 張時在欄內左右捲動 */
     .proj-grid.single .shots {
@@ -757,6 +769,11 @@
         box-shadow: none; transform: none;
       }
       .proj-card h3 { font-size: 13pt; }
+      .proj-header {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        gap: 16px; margin-bottom: 10px; padding-bottom: 8px;
+        break-inside: avoid;
+      }
       .proj-card .sub, .proj-card ul { font-size: 9.5pt; line-height: 1.45; }
       .proj-card .sub { margin-bottom: 5px; }
       .proj-card .stack { margin-bottom: 6px; }
@@ -1076,18 +1093,24 @@
       <div class="proj-grid single">
 
         <div class="proj-card">
-          <h3><img class="app-icon" src="assets/icons/fraud.png" alt="" width="26" height="26">防詐隊長</h3>
-          <p class="proj-org">CHT Security 中華資安國際</p>
-          <div class="badges">
-            <span class="badge badge-flagship">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 5.7L19.6 9l-4.3 3.6 1.4 5.9L12 15.3 7.3 18.5l1.4-5.9L4.4 9l5.7-1.3L12 2z"/></svg>
-              主力產品
-            </span>
-            <span class="badge badge-new">2026.07 上線</span>
-            <span class="badge badge-cert">發明專利 I904976</span>
+          <div class="proj-header">
+            <div class="proj-identity">
+              <h3><img class="app-icon" src="assets/icons/fraud.png" alt="" width="26" height="26">防詐隊長</h3>
+              <p class="proj-org">CHT Security 中華資安國際</p>
+            </div>
+            <div class="proj-info">
+              <div class="badges">
+                <span class="badge badge-flagship">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 5.7L19.6 9l-4.3 3.6 1.4 5.9L12 15.3 7.3 18.5l1.4-5.9L4.4 9l5.7-1.3L12 2z"/></svg>
+                  主力產品
+                </span>
+                <span class="badge badge-new">2026.07 上線</span>
+                <span class="badge badge-cert">發明專利 I904976</span>
+              </div>
+              <p class="sub">協助使用者識別詐騙資訊，並在 Android 端直接阻擋詐騙訊息的防護 App</p>
+              <div class="stack">MVVM · Hilt · Kotlin · NotificationListenerService · 端側 AI 推論</div>
+            </div>
           </div>
-          <p class="sub">協助使用者識別詐騙資訊，並在 Android 端直接阻擋詐騙訊息的防護 App</p>
-          <div class="stack">MVVM · Hilt · Kotlin · NotificationListenerService · 端側 AI 推論</div>
           <div class="shots" data-gallery="fraud">
             <button type="button" data-src="assets/shots/fraud-1.jpg" data-cap="防詐隊長 — 首頁：即時偵測狀態與防詐快訊">
               <img src="assets/shots/fraud-1.jpg" alt="防詐隊長 首頁，顯示正在即時偵測的狀態、已監控的應用程式數與防詐快訊" loading="lazy" width="401" height="900">
@@ -1126,17 +1149,23 @@
         </div>
 
         <div class="proj-card">
-          <h3><img class="app-icon" src="assets/icons/cht.png" alt="" width="26" height="26">中華網安助手</h3>
-          <p class="proj-org">CHT Security 中華資安國際</p>
-          <div class="badges">
-            <span class="badge badge-flagship">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 5.7L19.6 9l-4.3 3.6 1.4 5.9L12 15.3 7.3 18.5l1.4-5.9L4.4 9l5.7-1.3L12 2z"/></svg>
-              主力產品
-            </span>
-            <span class="badge badge-cert">MAS 資安標章</span>
+          <div class="proj-header">
+            <div class="proj-identity">
+              <h3><img class="app-icon" src="assets/icons/cht.png" alt="" width="26" height="26">中華網安助手</h3>
+              <p class="proj-org">CHT Security 中華資安國際</p>
+            </div>
+            <div class="proj-info">
+              <div class="badges">
+                <span class="badge badge-flagship">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 5.7L19.6 9l-4.3 3.6 1.4 5.9L12 15.3 7.3 18.5l1.4-5.9L4.4 9l5.7-1.3L12 2z"/></svg>
+                  主力產品
+                </span>
+                <span class="badge badge-cert">MAS 資安標章</span>
+              </div>
+              <p class="sub">提供用戶操作付費通信網路功能的平台</p>
+              <div class="stack">MVVM · Hilt · Kotlin</div>
+            </div>
           </div>
-          <p class="sub">提供用戶操作付費通信網路功能的平台</p>
-          <div class="stack">MVVM · Hilt · Kotlin</div>
           <div class="shots" data-gallery="cht">
             <button type="button" data-src="assets/shots/cht-1.jpg" data-cap="中華網安助手 — 首頁：各項防護服務的管理狀態一覽">
               <img src="assets/shots/cht-1.jpg" alt="中華網安助手 首頁，列出色情守門員、防駭守門員等服務的管理狀態" loading="lazy" width="506" height="900">
@@ -1171,15 +1200,33 @@
         </div>
 
         <div class="proj-card">
-          <h3>CypherCom</h3>
-          <p class="proj-org">CHT Security 中華資安國際</p>
-          <p class="sub">提供特殊加密的通訊平台</p>
-          <div class="stack">MVVM · Hilt · Kotlin</div>
+          <div class="proj-header">
+            <div class="proj-identity">
+              <h3><img class="app-icon" src="assets/icons/cyphercom.png" alt="" width="26" height="26">CypherCom</h3>
+              <p class="proj-org">CHT Security 中華資安國際</p>
+            </div>
+            <div class="proj-info">
+              <p class="sub">提供特殊加密的通訊平台</p>
+              <div class="stack">MVVM · Hilt · Kotlin</div>
+            </div>
+          </div>
+          <div class="shots" data-gallery="cypher">
+            <button type="button" data-src="assets/shots/cypher-1.jpg" data-cap="CypherCom — 聊天室列表與好友分頁">
+              <img src="assets/shots/cypher-1.jpg" alt="CypherCom 聊天室列表，含好友分頁與搜尋" loading="lazy" width="415" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/cypher-2.jpg" data-cap="CypherCom — 加密聊天室對話">
+              <img src="assets/shots/cypher-2.jpg" alt="CypherCom 加密聊天室的對話畫面，含文字與貼圖訊息" loading="lazy" width="415" height="900">
+            </button>
+            <button type="button" data-src="assets/shots/cypher-3.jpg" data-cap="CypherCom — 加密語音通話中">
+              <img src="assets/shots/cypher-3.jpg" alt="CypherCom 加密語音通話畫面，顯示已加密標記與通話品質" loading="lazy" width="415" height="900">
+            </button>
+          </div>
           <ul>
             <li>以 Kotlin 重構專案</li>
             <li>引入單元測試</li>
             <li>引入 Crashlytics 追蹤上線狀況</li>
           </ul>
+          <p class="shots-note">截圖取自 Google Play 商店頁公開素材。</p>
           <div class="link-row stores">
             <a class="store-link" href="https://play.google.com/store/apps/details?id=com.chtsecurity.cyphercom"
                target="_blank" rel="noopener">
@@ -1194,10 +1241,16 @@
         </div>
 
         <div class="proj-card">
-          <h3><img class="app-icon" src="assets/icons/sticker.png" alt="" width="26" height="26">Animated Sticker Maker for WA</h3>
-          <p class="proj-org">立應科技有限公司</p>
-          <p class="sub">動態貼圖瀏覽與自製貼圖工具</p>
-          <div class="stack">MVVM · Hilt · OpenCV · WebP</div>
+          <div class="proj-header">
+            <div class="proj-identity">
+              <h3><img class="app-icon" src="assets/icons/sticker.png" alt="" width="26" height="26">Animated Sticker Maker for WA</h3>
+              <p class="proj-org">立應科技有限公司</p>
+            </div>
+            <div class="proj-info">
+              <p class="sub">動態貼圖瀏覽與自製貼圖工具</p>
+              <div class="stack">MVVM · Hilt · OpenCV · WebP</div>
+            </div>
+          </div>
           <div class="shots" data-gallery="sticker">
             <button type="button" data-src="assets/shots/sticker-1.jpg" data-cap="Animated Sticker Maker — 貼圖包首頁，逾 300 組主題">
               <img src="assets/shots/sticker-1.jpg" alt="Animated Sticker Maker 貼圖包首頁，分頁瀏覽多組貼圖主題" loading="lazy" width="506" height="900">
@@ -1226,10 +1279,16 @@
         </div>
 
         <div class="proj-card">
-          <h3><img class="app-icon" src="assets/icons/wamr.png" alt="" width="26" height="26">WA message recover-backup</h3>
-          <p class="proj-org">立應科技有限公司</p>
-          <p class="sub">提供備份通訊軟體內容的功能</p>
-          <div class="stack">MVVM · Hilt</div>
+          <div class="proj-header">
+            <div class="proj-identity">
+              <h3><img class="app-icon" src="assets/icons/wamr.png" alt="" width="26" height="26">WA message recover-backup</h3>
+              <p class="proj-org">立應科技有限公司</p>
+            </div>
+            <div class="proj-info">
+              <p class="sub">提供備份通訊軟體內容的功能</p>
+              <div class="stack">MVVM · Hilt</div>
+            </div>
+          </div>
           <div class="shots" data-gallery="wamr">
             <button type="button" data-src="assets/shots/wamr-1.jpg" data-cap="WA message recover — 已擷取的訊息列表">
               <img src="assets/shots/wamr-1.jpg" alt="WA message recover 訊息列表，依聯絡人顯示已擷取的訊息與時間" loading="lazy" width="415" height="900">
@@ -1253,10 +1312,16 @@
         </div>
 
         <div class="proj-card">
-          <h3><img class="app-icon" src="assets/icons/hktvmall.png" alt="" width="26" height="26">HKTVmall</h3>
-          <p class="proj-org">英屬維京群島商易創投有限公司</p>
-          <p class="sub">香港最大線上購物平台的 Android App</p>
-          <div class="stack">MVVM · ExoPlayer · Google Analytics</div>
+          <div class="proj-header">
+            <div class="proj-identity">
+              <h3><img class="app-icon" src="assets/icons/hktvmall.png" alt="" width="26" height="26">HKTVmall</h3>
+              <p class="proj-org">英屬維京群島商易創投有限公司</p>
+            </div>
+            <div class="proj-info">
+              <p class="sub">香港最大線上購物平台的 Android App</p>
+              <div class="stack">MVVM · ExoPlayer · Google Analytics</div>
+            </div>
+          </div>
           <div class="shots" data-gallery="hktv">
             <button type="button" data-src="assets/shots/hktv-1.jpg" data-cap="HKTVmall — 品牌主視覺與自取點服務">
               <img src="assets/shots/hktv-1.jpg" alt="HKTVmall 商店頁主視覺，介紹超過 300 個自取點" loading="lazy" width="506" height="900">
@@ -1302,21 +1367,27 @@
       <div class="proj-grid">
 
         <div class="proj-card">
-          <h3><img class="app-icon" src="assets/icons/kahe.png" alt="" width="26" height="26">KaHe 卡盒</h3>
-          <p class="sub">集換式卡牌遊戲的牌組建構與卡池瀏覽工具</p>
-          <div class="badges">
-            <span class="badge badge-ai">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 5.7L19.6 9l-4.3 3.6 1.4 5.9L12 15.3 7.3 18.5l1.4-5.9L4.4 9l5.7-1.3L12 2z"/></svg>
-              AI 加速實現
-            </span>
-            <span class="badge badge-pending">Google Play 送審中</span>
-          </div>
-          <div class="stack">Kotlin Multiplatform · Compose Multiplatform</div>
-          <div class="platforms">
-            <span class="platform">Android</span>
-            <span class="platform">iOS</span>
-            <span class="platform">Desktop</span>
-            <span class="platform">Web / Wasm</span>
+          <div class="proj-header">
+            <div class="proj-identity">
+              <h3><img class="app-icon" src="assets/icons/kahe.png" alt="" width="26" height="26">KaHe 卡盒</h3>
+            </div>
+            <div class="proj-info">
+              <p class="sub">集換式卡牌遊戲的牌組建構與卡池瀏覽工具</p>
+              <div class="badges">
+                <span class="badge badge-ai">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 5.7L19.6 9l-4.3 3.6 1.4 5.9L12 15.3 7.3 18.5l1.4-5.9L4.4 9l5.7-1.3L12 2z"/></svg>
+                  AI 加速實現
+                </span>
+                <span class="badge badge-pending">Google Play 送審中</span>
+              </div>
+              <div class="stack">Kotlin Multiplatform · Compose Multiplatform</div>
+              <div class="platforms">
+                <span class="platform">Android</span>
+                <span class="platform">iOS</span>
+                <span class="platform">Desktop</span>
+                <span class="platform">Web / Wasm</span>
+              </div>
+            </div>
           </div>
           <div class="shots" data-gallery="kahe">
             <button type="button" data-src="assets/shots/kahe-1.jpg" data-cap="KaHe 卡盒 — 首次導覽的歡迎頁">
@@ -1361,18 +1432,24 @@
         </div>
 
         <div class="proj-card">
-          <h3>Card Radar</h3>
-          <p class="sub">卡牌商品到貨監控與通知系統</p>
-          <div class="badges">
-            <span class="badge badge-ai">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 5.7L19.6 9l-4.3 3.6 1.4 5.9L12 15.3 7.3 18.5l1.4-5.9L4.4 9l5.7-1.3L12 2z"/></svg>
-              AI 加速實現
-            </span>
-          </div>
-          <div class="stack">Python · GitHub Actions · Firestore · React</div>
-          <div class="platforms">
-            <span class="platform">Web</span>
-            <span class="platform">Telegram Bot</span>
+          <div class="proj-header">
+            <div class="proj-identity">
+              <h3>Card Radar</h3>
+            </div>
+            <div class="proj-info">
+              <p class="sub">卡牌商品到貨監控與通知系統</p>
+              <div class="badges">
+                <span class="badge badge-ai">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 5.7L19.6 9l-4.3 3.6 1.4 5.9L12 15.3 7.3 18.5l1.4-5.9L4.4 9l5.7-1.3L12 2z"/></svg>
+                  AI 加速實現
+                </span>
+              </div>
+              <div class="stack">Python · GitHub Actions · Firestore · React</div>
+              <div class="platforms">
+                <span class="platform">Web</span>
+                <span class="platform">Telegram Bot</span>
+              </div>
+            </div>
           </div>
           <div class="shots" data-gallery="cardradar">
             <button type="button" data-src="assets/shots/cardradar-1.jpg" data-cap="Card Radar — 監控儀表板入口，以 Google 登入限定授權帳號">
