@@ -24,15 +24,40 @@ try {
     await document.fonts.ready;
     // 聯絡資訊放在第一頁摘要之後，讓專案頁集中呈現作品。
     document.querySelector('#skills').after(document.querySelector('#contact'));
-    // PDF 專用的左右欄：截圖與成果共用高度，原始網頁的 DOM 與排版不變。
+    // PDF 專用展示區：大圖、簡短圖說與成果文字分區，保留所有原始圖片。
     document.querySelectorAll('.proj-card').forEach(card => {
       const gallery = card.querySelector(':scope > .shots-wrap, :scope > .shots');
       const details = card.querySelector(':scope > ul');
       if (!gallery || !details) return;
+      const panel = document.createElement('div');
+      panel.className = 'resume-project-gallery';
+      const label = document.createElement('div');
+      label.className = 'resume-block-label';
+      label.textContent = '產品畫面';
+      const strip = document.createElement('div');
+      strip.className = 'resume-gallery-strip';
+      gallery.querySelectorAll('.shots button, button[data-src]').forEach((button, index) => {
+        const figure = document.createElement('figure');
+        const caption = document.createElement('figcaption');
+        const title = (button.dataset.cap || '').split(' — ').slice(1).join(' — ').split('：')[0];
+        caption.textContent = `${index + 1}. ${title || '應用程式畫面'}`;
+        figure.append(button.querySelector('img'), caption);
+        strip.append(figure);
+      });
+      strip.dataset.count = String(strip.children.length);
+      panel.append(label, strip);
+      const note = card.querySelector('.shots-note');
+      if (note) panel.append(note);
+      const layout = document.createElement('div');
+      layout.className = 'resume-project-body';
+      gallery.replaceWith(layout);
       const body = document.createElement('div');
-      body.className = 'resume-project-body';
-      gallery.before(body);
-      body.append(gallery, details);
+      body.className = 'resume-project-details';
+      const heading = document.createElement('div');
+      heading.className = 'resume-block-label';
+      heading.textContent = '開發成果';
+      body.append(heading, details);
+      layout.append(panel, body);
     });
   });
   await page.pdf({

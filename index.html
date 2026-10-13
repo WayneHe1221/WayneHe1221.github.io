@@ -761,18 +761,42 @@
       .proj-card .sub { margin-bottom: 5px; }
       .proj-card .stack { margin-bottom: 6px; }
       .proj-card .badges, .proj-card .platforms { margin-bottom: 6px; }
-      /* 匯出時將截圖與成果並排，讓短專案不再各占一大塊高度。 */
+      /* PDF 使用獨立的大圖展示區，與右側的文字成果明確分開。 */
       .resume-project-body {
-        display: grid;
-        grid-template-columns: 142px minmax(0, 1fr);
-        gap: 12px;
-        align-items: start;
-        margin-bottom: 5px;
+        display: grid; grid-template-columns: 54% minmax(0, 1fr);
+        gap: 16px; align-items: start; margin: 10px 0;
       }
-      .resume-project-body > ul { margin: 0; }
-      .resume-project-body .shots { margin: 0; padding: 0; gap: 4px; }
-      .resume-project-body .shots img { height: 78px; }
-      .resume-project-body .shots button { border-radius: 5px; }
+      .resume-project-gallery {
+        background: #f6f8fa;
+        border: 1px solid #e1e4e8;
+        border-radius: 6px;
+        padding: 10px;
+        margin: 0;
+      }
+      .resume-block-label {
+        font-size: 9pt; font-weight: 700; color: var(--accent);
+        margin: 0 0 8px; letter-spacing: 0.5px;
+      }
+      .resume-gallery-strip {
+        display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: start; gap: 12px 8px;
+      }
+      .resume-gallery-strip[data-count="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .resume-gallery-strip[data-count="1"] { grid-template-columns: 1fr; }
+      .resume-gallery-strip figure { margin: 0; min-width: 0; }
+      .resume-gallery-strip img {
+        display: block; height: 200px; width: auto; max-width: 100%; margin: 0 auto;
+        object-fit: contain; border: 1px solid #d0d7de; border-radius: 5px;
+      }
+      .resume-gallery-strip figcaption {
+        margin-top: 6px; font-size: 8pt; line-height: 1.4;
+        color: #444; text-align: center;
+      }
+      .resume-project-gallery .shots-note {
+        margin: 8px 0 0; font-size: 7.5pt; color: #57606a;
+      }
+      .resume-project-details { margin-top: 0; padding-left: 4px; }
+      .resume-project-details > ul { margin: 0; }
       .proj-card .shots-note { margin-bottom: 4px; }
       .proj-card li { margin-bottom: 2px; }
       .proj-card .link-row, .proj-grid.single .proj-card > .link-row {
