@@ -332,11 +332,12 @@
     /* 整列寬的卡片改用左右分欄：截圖靠左、條列靠右，
        填掉原本兩側的空白，卡片高度也縮短不少。 */
     .proj-grid.single .proj-card {
+      --project-columns: minmax(0, 244px) minmax(0, 1fr);
+      --project-gap: 24px;
       display: grid;
-      /* 截圖欄貼合內容寬度，但以 .shots 的 max-width 為上限：
-         3 張以內剛好排滿，超過就在欄內左右捲動；沒有截圖時軌道收成 0。 */
-      grid-template-columns: minmax(0, max-content) 1fr;
-      column-gap: 24px;
+      /* 標題與內容共用欄寬，讓右側簡述和成果文字對齊。 */
+      grid-template-columns: var(--project-columns);
+      column-gap: var(--project-gap);
       align-items: start;
     }
     /* 標題與底部連結列橫跨整個卡片寬度 */
@@ -352,6 +353,7 @@
 
     .proj-header {
       display: grid;
+      width: 100%;
       grid-template-columns: minmax(0, 1fr);
       gap: 8px;
       margin-bottom: 14px;
@@ -362,8 +364,8 @@
     .proj-info > :last-child { margin-bottom: 0; }
     @media screen and (min-width: 761px) {
       .proj-grid.single .proj-header {
-        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-        gap: 24px;
+        grid-template-columns: var(--project-columns);
+        gap: var(--project-gap);
       }
     }
 
@@ -421,7 +423,9 @@
     .proj-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
     .proj-card h3 {
       margin: 0 0 4px;
-      font-size: 1.08rem;
+      font-size: 1.25rem;
+      font-weight: 750;
+      line-height: 1.35;
       display: flex;
       align-items: center;
       gap: 9px;
@@ -435,12 +439,12 @@
       background: var(--bg-alt);
     }
     .proj-card .proj-org {
-      font-size: 0.78rem;
+      font-size: 0.9rem;
       color: var(--accent);
       font-weight: 600;
       margin: 0 0 6px;
     }
-    .proj-card .sub { color: var(--text-soft); font-size: 0.9rem; margin: 0 0 10px; }
+    .proj-card .sub { color: var(--text); font-size: 1rem; font-weight: 650; margin: 0 0 10px; }
     .proj-card .stack { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); margin-bottom: 12px; }
     .proj-card ul { margin: 0; padding-left: 18px; color: var(--text-soft); font-size: 0.92rem; }
     .proj-card li { margin-bottom: 4px; }
@@ -747,23 +751,26 @@
       #side-projects > p { break-after: avoid; }
       .proj-grid, .proj-grid.single { display: block; }
       .proj-card, .proj-grid.single .proj-card {
+        --project-columns: 54% minmax(0, 1fr);
+        --project-gap: 16px;
         display: block; padding: 10px; margin-bottom: 10px;
         box-shadow: none; transform: none;
       }
-      .proj-card h3 { font-size: 13pt; }
+      .proj-card h3 { font-size: 16pt; font-weight: 750; line-height: 1.3; }
+      .proj-card .proj-org { font-size: 9.5pt; font-weight: 650; margin-top: 6px; }
       .proj-header {
-        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-        gap: 16px; margin-bottom: 10px; padding-bottom: 8px;
+        grid-template-columns: var(--project-columns);
+        gap: var(--project-gap); margin-bottom: 10px; padding-bottom: 8px;
         break-inside: avoid;
       }
-      .proj-card .sub, .proj-card ul { font-size: 9.5pt; line-height: 1.45; }
-      .proj-card .sub { margin-bottom: 5px; }
+      .proj-card ul { font-size: 9.5pt; line-height: 1.45; }
+      .proj-card .sub { font-size: 10.5pt; font-weight: 650; line-height: 1.45; margin-bottom: 6px; }
       .proj-card .stack { margin-bottom: 6px; }
       .proj-card .badges, .proj-card .platforms { margin-bottom: 6px; }
       /* PDF 使用獨立的大圖展示區，與右側的文字成果明確分開。 */
       .resume-project-body {
-        display: grid; grid-template-columns: 54% minmax(0, 1fr);
-        gap: 16px; align-items: start; margin: 10px 0;
+        display: grid; grid-template-columns: var(--project-columns);
+        gap: var(--project-gap); align-items: start; margin: 10px 0;
       }
       .resume-project-gallery {
         background: #f6f8fa;
@@ -794,7 +801,7 @@
       .resume-project-gallery .shots-note {
         margin: 8px 0 0; font-size: 7.5pt; color: #57606a;
       }
-      .resume-project-details { margin-top: 0; padding-left: 4px; }
+      .resume-project-details { margin-top: 0; }
       .resume-project-details > ul { margin: 0; }
       .proj-card .shots-note { margin-bottom: 4px; }
       .proj-card li { margin-bottom: 2px; }
